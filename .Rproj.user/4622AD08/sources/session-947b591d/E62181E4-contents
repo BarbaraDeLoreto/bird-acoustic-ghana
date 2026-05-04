@@ -1,0 +1,22 @@
+# Pick one known-silent file and run this
+f <- "F:/Acoustic_Monitoring_Block_01/Short_Term_Block_01/C01/C01_A/20250506_SCHED/20250506T165344+1000_BITTERN.wav"
+
+h <- readWave(f, header = TRUE)
+cat("Bit depth:", h$bits, "\n")
+cat("Sample rate:", h$sample.rate, "\n")
+cat("Samples:", h$samples, "\n")
+cat("Duration (s):", h$samples / h$sample.rate, "\n")
+cat("Channels:", h$chan, "\n\n")
+
+# Read a small chunk and inspect raw values
+w <- readWave(f, from = 0, to = 10, units = "seconds")
+cat("Left channel - min:", min(w@left), "max:", max(w@left), "mean:", mean(w@left), "\n")
+if (w@stereo) cat("Right channel - min:", min(w@right), "max:", max(w@right), "mean:", mean(w@right), "\n")
+
+# What RMS is actually being computed?
+norm <- if (w@bit == 8) (w@left - 128) / 128 else w@left / (2^(w@bit - 1))
+cat("Normalised RMS:", sqrt(mean(norm^2)), "\n")
+
+# Optional: plot the waveform visually
+plot(w@left[1:min(10000, length(w@left))], type = "l", 
+     main = "First 10k samples", ylab = "Amplitude")
