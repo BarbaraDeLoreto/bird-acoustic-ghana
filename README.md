@@ -40,23 +40,11 @@ You will need access to the data to run the script.
 
 Run scripts in the following order:
 
-1. 2. `BirdNET_output.R` — processes BirdNET detections and produces `birdnet_wrangled.csv`
-3. `Bird_accoustic_richness.R` — runs the full richness analysis including models, 
-    sensitivity analysis, figures and tables
+1. BirdNET output
+2. Birs Acoustic Richness
+3. Species Composition
+4. Investigating Issues Missing species
 
-`Catalog_accoustic_files.R` — was used only for some checks and it is not essential for the results.
-
-### R Package Dependencies
-
-```r
-install.packages(c("data.table", "lubridate", "stringr", "readxl", "dplyr",
-                   "openxlsx", "ggplot2", "gt", "tidyr", "purrr", "lme4",
-                   "DHARMa", "glmmTMB", "viridis"))
-```
-
-## Study Details
-
-TDC
 
 ## Contact
 
