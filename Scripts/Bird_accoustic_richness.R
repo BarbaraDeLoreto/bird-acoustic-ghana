@@ -1,15 +1,9 @@
-######DATA WRANGGLING AND ANALYSIS FOR RICHNESS (FOREST BIRDS) - 20 MIN TRAD SURVEY VS BIRDNET
+######DATA WRANGGLING AND ANALYSIS FOR RICHNESS (FOREST BIRDS) - 
 # BARBARA OLIVEIRA DE LORETO 30/04/2026 - WITH CLAUDE SUPPORT
-
-# DEPENDENCIES
-# This script requires birdnet_wrangled.csv in the Outputs folder
-# Run the BirdNET batch analysis script first to generate this file
-# Data files required in the Data folder or RDM - see README for details
-
 
 ################################################################################
 ######## Objectives##############################################################
-#########1.Create one object/output out of all traditional surveys one M and 1 E per subplot,
+#########1.Create one object/output out of all point count surveys one M and 1 E per subplot,
 ############ fix dates, names and times.
 #########2. a. create a dataset with BirdNet detections 20 min survey
 ########### b. create a BN dataset with 24h surveys
@@ -400,7 +394,7 @@ class(survey_windows$survey_end)
 # Also check a few values
 head(survey_windows[, c("survey_start", "survey_end")])
 
-# Traditional survey duration per window
+# point count survey duration per window
 trad_duration <- survey_windows |>
   mutate(duration_minutes = as.numeric(difftime(survey_end, survey_start, units = "mins"))) |>
   select(ID, survey_M_E, survey_start, survey_end, duration_minutes) #C11_D evening is 20 min (raw data)
@@ -416,7 +410,7 @@ all_surveys_checked |>
   ) |>
   arrange(has_M & has_E) |>
   data.frame() #50 have a M and E (C27_B, C30_C, C52_O don't have two surveys) 
-#i will reconsider this again after checking if these are present in BirdNET or not
+
 
 # Check per plot: number of subplots and M/E coverage
 all_surveys_checked |>
@@ -438,7 +432,7 @@ all_surveys_checked |>
   ) |>
   data.frame() 
 
-#create output file with all traditional surveys to be used
+#create output file with all point count surveys to be used
 write.csv(all_surveys_checked, file = "D:/QBIO7008/Bird_accoustic/Outputs/all_traditional_surveys.csv")
 
 ###############################################################################
@@ -456,7 +450,7 @@ missing_in_bn <- all_surveys_checked |>
   distinct(ID) |>
   filter(!ID %in% bn_w$subplot_ID)
 
-cat("Subplots in traditional survey but not in bn_w:\n")
+cat("Subplots in point count survey but not in bn_w:\n")
 missing_in_bn
 
 # Filter BirdNET to all survey time windows 
@@ -628,7 +622,7 @@ missing_windows <- survey_windows_ids |>
 
 missing_windows #21 surveys
 
-# Export missing windows for manual checking of raw audio data
+# Export missing windows for manual checking of raw AudioMoth data
 missing_windows |>
   mutate(
     notes = NA_character_  # blank column for you to fill in during checking
@@ -636,56 +630,6 @@ missing_windows |>
   write.csv("D:/QBIO7008/Bird_accoustic/Outputs/missing_bn_windows_to_check.csv",
             row.names = FALSE)
 
-# only ran for checks - run only if you have access to the file below
-# # Load catalog of acoustic files #still some issues with this object
-# catalog <- fread("D:/QBIO7008/Bird_accoustic/Outputs/recording_catalog_all_blocks.csv") |>
-#   mutate(datetime = as.POSIXct(datetime, tz = "UTC"))
-# 
-# # For each missing window, check if any catalog file covers that time slot
-# # A file "covers" a window if it starts <= survey_start and the next file 
-# # starts > survey_start (i.e. the survey falls within the recording)
-# 
-# missing_windows_checked <- missing_windows |>
-#   rowwise() |>
-#   mutate(
-#     # Find all files from that subplot on that date
-#     candidate_files = list(
-#       catalog |>
-#         filter(
-#           subplot == ID,
-#           date    == as.Date(survey_start)
-#         )
-#     ),
-#     # Check if any file starts at or before survey_start
-#     # and within 1 hour (one recording chunk)
-#     covering_file = {
-#       cf <- candidate_files
-#       if (nrow(cf) == 0) {
-#         NA_character_
-#       } else {
-#         cf <- cf |>
-#           filter(datetime <= survey_start,
-#                  datetime >= survey_start - 3600)  # within 1hr before
-#         if (nrow(cf) == 0) NA_character_ else cf$filename[which.max(cf$datetime)]
-#       }
-#     },
-#     recording_exists = !is.na(covering_file)
-#   ) |>
-#   ungroup() |>
-#   select(ID, survey_M_E, date_DD_MM_YY, survey_start, survey_end,
-#          recording_exists, covering_file)
-# 
-# # Summary
-# cat("Missing windows WITH a covering recording:", sum(missing_windows_checked$recording_exists), "\n")
-# cat("Missing windows with NO recording at all: ", sum(!missing_windows_checked$recording_exists), "\n")
-# 
-# # Full table
-# missing_windows_checked |> data.frame() |> print()
-# 
-# # Save
-# fwrite(missing_windows_checked,
-#        "D:/QBIO7008/Bird_accoustic/Outputs/missing_windows_checked.csv")
-# 
 
 # write the dataset Bn_like-for-like
 write.csv(bn_like_for_like,
@@ -756,7 +700,7 @@ all_surveys_forest_birds |>
 unique(all_surveys_forest_birds$plot_ID) #22 - no deletions with filtering
 unique(all_surveys_forest_birds$ID) #53 - no deletions with filtering
 
-# Save traditional surveys filtered for forest 
+# Save point count surveys filtered for forest 
 write.csv(all_surveys_forest_birds,
           "D:/QBIO7008/Bird_accoustic/Outputs/all_surveys_forest_birds.csv",
           row.names = FALSE)
@@ -792,7 +736,7 @@ bn_like_for_like_forest |>
 
 # now have a filtered set
 bn_like_for_like_forest <- bn_like_for_like_forest |> filter (forest_species == "Y")
-nrow (bn_like_for_like_forest) #22838
+nrow (bn_like_for_like_forest) #23217
 
 # Save bn like for like filtered for forest 
 write.csv(bn_like_for_like_forest,
@@ -800,7 +744,7 @@ write.csv(bn_like_for_like_forest,
           row.names = FALSE)
 
 #checks
-# Traditional surveys - forest birds only
+# point count surveys - forest birds only
 all_surveys_forest_birds |>
   distinct(plot_ID, ID, survey_M_E) |>
   group_by(plot_ID, ID) |>
@@ -834,7 +778,8 @@ bn_like_for_like_forest |>
   ) |>
   arrange(plot_ID) |>
   data.frame() #two plots are not ok 102 and 141 (only have a morning or evening survey)
-# 40 subplots and 20 plots moving forward
+
+unique(bn_like_for_like_forest$deployment)
 
 # Before forest filter
 bn_like_for_like |>
@@ -874,41 +819,235 @@ left_join(coverage_before, coverage_after,
           suffix = c("_before", "_after")) |>
   data.frame()
 
-#conclusion - moving forward with 20 subplots - 102 was already missing overlaping Birnet data, 141 is missing forest birds data so should be zero
+#conclusion - moving forward with 20 plots (40 subplots?) - 102 was already missing overlaping Birnet data, 141 is missing forest birds data so should be zero
 
-##### create a BirdNET dataset # 18h standardised window: 14:00 day 1 to 08:00 day 2
-# Anchor: 14:00 on the date of first detection per subplot from bn_w
-# C102 excluded - insufficient recording duration
+##### create a BirdNET dataset with the longest recording hours.
 
-subplots_in_analysis <- unique(all_surveys_forest_birds$ID) # already missing 102
+# Define validated subplot list - only subplots with both M and E in bn_like_for_like
+validated_subplots <- bn_like_for_like_forest |>
+  distinct(subplot_ID, survey_M_E) |>
+  group_by(subplot_ID) |>
+  summarise(has_M = any(survey_M_E == "M"),
+            has_E = any(survey_M_E == "E"),
+            .groups = "drop") |>
+  filter(has_M & has_E) |>
+  mutate(plot_ID = str_extract(subplot_ID, "^C\\d+")) |>
+  select(subplot_ID, plot_ID)
 
-all_anchors <- bn_w[subplot_ID %in% subplots_in_analysis,
-                    .(first_detection = min(recording_start)),
-                    by = subplot_ID] |>
+
+# Save
+fwrite(validated_subplots, "D:/QBIO7008/Bird_accoustic/Outputs/validated_subplots.csv")
+
+#determine recording times using file names in birdnet - idenitified when continuous recording not present
+
+
+bn_w[subplot_ID %in% validated_subplots$subplot_ID] |>
+  group_by(subplot_ID) |>
+  distinct(recording_start) |>
+  arrange(subplot_ID, recording_start) |>
+  mutate(gap_minutes = as.numeric(difftime(lead(recording_start), 
+                                           recording_start, 
+                                           units = "mins"))) |>
+  filter(!is.na(gap_minutes)) |>
+  summarise(
+    min_gap = min(gap_minutes),
+    max_gap = max(gap_minutes),
+    common_gap = as.numeric(names(sort(table(round(gap_minutes)), 
+                                       decreasing = TRUE)[1])),
+    .groups = "drop"
+  ) |>
+  arrange(desc(max_gap)) |>
+  print(n = 41)
+
+
+# Get all distinct file start times per subplot
+file_times <- bn_w[subplot_ID %in% validated_subplots$subplot_ID] |>
+  distinct(subplot_ID, recording_start) |>
+  arrange(subplot_ID, recording_start)
+
+# Find longest continuous block per subplot
+# Gap tolerance: 65 minutes for 1-hour files, 365 minutes for C58_C (6-hour files)
+longest_block <- file_times |>
+  group_by(subplot_ID) |>
+  mutate(
+    gap_tolerance = ifelse(subplot_ID == "C58_C", 365, 65),
+    gap_minutes   = as.numeric(difftime(lead(recording_start),
+                                        recording_start,
+                                        units = "mins")),
+    # A new block starts when gap exceeds tolerance
+    new_block     = is.na(lag(gap_minutes)) | 
+      lag(gap_minutes) > gap_tolerance,
+    block_id      = cumsum(new_block)
+  ) |>
+  group_by(subplot_ID, block_id) |>
+  summarise(
+    block_start    = min(recording_start),
+    block_end_last = max(recording_start),
+    n_files        = n(),
+    .groups        = "drop"
+  ) |>
+  mutate(
+    # Add file duration to last file start to get actual block end
+    file_duration_min = ifelse(subplot_ID == "C58_C", 360, 60),
+    block_end         = block_end_last + minutes(file_duration_min),
+    block_hours       = as.numeric(difftime(block_end,
+                                            block_start,
+                                            units = "hours"))
+  ) |>
+  # Keep only longest block per subplot
+  group_by(subplot_ID) |>
+  slice_max(block_hours, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  arrange(desc(block_hours))
+
+# Print table
+longest_block |>
+  select(subplot_ID, block_start, block_end, block_hours, n_files) |>
+  print(n = 41)
+
+
+# Extract start hour from block_start (time of day only)
+longest_block_hours <- longest_block |>
+  mutate(
+    start_hour_of_day = hour(block_start) + minute(block_start) / 60
+  )
+
+longest_block_plot <- longest_block |>
+  mutate(
+    anchor  = case_when(
+      subplot_ID == "C58_C" ~ as.POSIXct(paste(as.Date(block_start) - 1, "06:00:00"),
+                                         tz = "Africa/Accra"),
+      TRUE                  ~ as.POSIXct(paste(as.Date(block_start), "06:00:00"),
+                                         tz = "Africa/Accra")
+    ),
+    y_start    = as.numeric(difftime(block_start, anchor, units = "hours")),
+    y_end      = as.numeric(difftime(block_end,   anchor, units = "hours")),
+    subplot_ID = factor(subplot_ID, levels = longest_block$subplot_ID)
+  )
+
+
+#table summary
+expand.grid(
+  start_hour = seq(6, 16, by = 1),
+  duration   = seq(16, 24, by = 1)
+) |>
+  rowwise() |>
+  mutate(
+    end_hour_raw   = start_hour + duration,
+    end_hour_clock = end_hour_raw %% 24,
+    end_day        = ifelse(end_hour_raw >= 24, "+1", ""),
+    end_time       = paste0(sprintf("%02d:00", as.integer(end_hour_clock)), end_day),
+    start_time     = sprintf("%02d:00", as.integer(start_hour)),
+    n_subplots     = sum(
+      longest_block_hours$start_hour_of_day <= start_hour &
+        longest_block_hours$block_hours       >= duration
+    )
+  ) |>
+  ungroup() |>
+  select(start_time, duration, end_time, n_subplots) |>
+  arrange(desc(n_subplots), desc(duration)) |>
+  print(n = 100)
+
+#decision to go with 14h till 10am
+
+#plot a gantt chart
+
+hour_breaks <- seq(0, 52, by = 2)
+hour_labels <- c(
+  "06:00", "08:00", "10:00", "12:00", "14:00", "16:00",
+  "18:00", "20:00", "22:00", "00:00", "02:00", "04:00",
+  "06:00", "08:00", "10:00", "12:00", "14:00", "16:00",
+  "18:00", "20:00", "22:00", "00:00", "02:00", "04:00",
+  "06:00", "08:00", "10:00"
+)
+
+fig_longest_block <- ggplot(longest_block_plot, aes(x = subplot_ID)) +
+  geom_rect(aes(xmin = as.numeric(subplot_ID) - 0.4,
+                xmax = as.numeric(subplot_ID) + 0.4,
+                ymin = y_start,
+                ymax = y_end),
+            fill = "#1B9E77") +
+  geom_hline(yintercept = 18, colour = "black", linetype = "dotted", linewidth = 0.5) +
+  geom_hline(yintercept = 42, colour = "black", linetype = "dotted", linewidth = 0.5) +
+  # 14:00 = 8 hours after 06:00 anchor
+  geom_hline(yintercept = 8,  colour = "red", linetype = "dashed", linewidth = 0.7) +
+  # 10:00 next day = 28 hours after 06:00 anchor
+  geom_hline(yintercept = 28, colour = "red", linetype = "dashed", linewidth = 0.7) +
+  scale_y_reverse(
+    breaks = hour_breaks,
+    labels = hour_labels,
+    limits = c(52, 0),
+    name   = "Time of day"
+  ) +
+  annotate("text", x = 0.5, y = 18, label = "Midnight",
+           hjust = 0, vjust = -0.5, size = 3, colour = "black") +
+  annotate("text", x = 0.5, y = 42, label = "Midnight (+1)",
+           hjust = 0, vjust = -0.5, size = 3, colour = "black") +
+  annotate("text", x = 0.5, y = 8,  label = "14:00",
+           hjust = 0, vjust = -0.5, size = 3, colour = "red") +
+  annotate("text", x = 0.5, y = 28, label = "10:00 (+1)",
+           hjust = 0, vjust = -0.5, size = 3, colour = "red") +
+  labs(
+    x     = "Subplot (ordered by longest continuous block)",
+    title = "Longest continuous recording block per subplot"
+  ) +
+  theme_classic() +
+  theme(
+    axis.text.x        = element_text(angle = 90, hjust = 1,
+                                      vjust = 0.5, size = 7),
+    axis.text.y        = element_text(size = 8),
+    panel.grid.major.y = element_line(colour = "grey90")
+  )
+
+fig_longest_block
+
+ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_longest_continuous_block.png",
+       fig_longest_block, width = 14, height = 6, dpi = 300)
+
+
+# filter to use for the long analysis
+subplots_long_ok <- longest_block_hours |>
+  filter(
+    start_hour_of_day <= 14 &
+      block_hours       >= 20
+  ) |>
+  pull(subplot_ID)
+
+
+write.csv(
+  data.frame(subplot_ID = subplots_long_ok),
+  "D:/QBIO7008/Bird_accoustic/Outputs/subplots_long_ok.csv",
+  row.names = FALSE
+)
+
+
+# Build anchors from the date of the longest continuous block start
+all_anchors_long <- longest_block_hours |>
+  filter(subplot_ID %in% subplots_long_ok) |>
   mutate(
     window_start = as.POSIXct(
-      paste(as.Date(first_detection), "14:00:00"),
+      paste(as.Date(block_start), "14:00:00"),
       tz = "Africa/Accra"),
-    window_end = window_start + hours(18)
+    window_end = window_start + hours(20)
   ) |>
   select(subplot_ID, window_start, window_end)
 
-bn_18h <- bn_w[subplot_ID %in% subplots_in_analysis] |>
-  filter(!startsWith(subplot_ID, "C102")) |>
-  left_join(all_anchors, by = "subplot_ID") |>
+# Filter bn_w to subplots_long_ok and 14:00-10:00 window
+bn_20h <- bn_w[subplot_ID %in% subplots_long_ok] |>
+  left_join(all_anchors_long, by = "subplot_ID") |>
   filter(!is.na(window_start),
          detection_datetime >= window_start,
          detection_datetime <  window_end)
 
 # Check
-cat("Detections in 18h window:", nrow(bn_18h), "\n")
-cat("Unique subplots:", uniqueN(bn_18h$subplot_ID), "\n") #50
-cat("Unique plots:", uniqueN(bn_18h$plot_ID), "\n")
+cat("Detections in 20h window:", nrow(bn_20h), "\n")
+cat("Unique subplots:", uniqueN(bn_20h$subplot_ID), "\n") #37
+cat("Unique plots:", uniqueN(bn_20h$plot_ID), "\n")
 
 
 
 # Apply forest bird filter
-bn_18h_forest <- bn_18h |>
+bn_20h_forest <- bn_20h |>
   mutate(forest_species = if_else(
     scientific_name %in% forest_birds$scientific_name_birdlife,
     "Y", "N"
@@ -916,11 +1055,12 @@ bn_18h_forest <- bn_18h |>
   filter(forest_species == "Y")
 
 # Check
-cat("Detections after forest filter:", nrow(bn_18h_forest), "\n")
-cat("Unique subplots:", uniqueN(bn_18h_forest$subplot_ID), "\n") #46
-cat("Unique plots:", uniqueN(bn_18h_forest$plot_ID), "\n")
+cat("Detections after forest filter:", nrow(bn_20h_forest), "\n")
+cat("Unique subplots:", uniqueN(bn_20h_forest$subplot_ID), "\n") #37 - same
+cat("Unique plots:", uniqueN(bn_20h_forest$plot_ID), "\n")
 
-bn_18h |>
+#this is based on detection time that is why it will show slightly different
+bn_20h |>
   group_by(subplot_ID) |>
   summarise(
     hours_first_to_last = as.numeric(difftime(max(detection_datetime),
@@ -931,45 +1071,11 @@ bn_18h |>
   arrange(hours_first_to_last) |>
   print(n = 50)
 
-#drop the ones that don't have the recording window
-# Check which subplots will be dropped
-bn_18h |>
-  group_by(subplot_ID) |>
-  summarise(
-    hours_first_to_last = as.numeric(difftime(max(detection_datetime),
-                                              min(detection_datetime),
-                                              units = "hours")),
-    .groups = "drop"
-  ) |>
-  filter(hours_first_to_last < 17) |>
-  arrange(hours_first_to_last)
-
-subplots_18h_ok <- bn_18h |>
-  group_by(subplot_ID) |>
-  summarise(
-    hours_first_to_last = as.numeric(difftime(max(detection_datetime),
-                                              min(detection_datetime),
-                                              units = "hours")),
-    .groups = "drop"
-  ) |>
-  filter(hours_first_to_last >= 17) |>
-  pull(subplot_ID)
-
-cat("Subplots retained:", length(subplots_18h_ok), "\n")
-
-# Apply subplot filter to both objects
-bn_18h <- bn_18h |> filter(subplot_ID %in% subplots_18h_ok)
-bn_18h_forest <- bn_18h_forest |> filter(subplot_ID %in% subplots_18h_ok)
-
-# Check
-cat("Unique subplots after drop:", uniqueN(bn_18h$subplot_ID), "\n") #43
-cat("Unique plots after drop:", uniqueN(bn_18h$plot_ID), "\n") #21
-cat("Detections after drop:", nrow(bn_18h_forest), "\n")
 
 # Save
-fwrite(bn_18h_forest, "D:/QBIO7008/Bird_accoustic/Outputs/bn_cocoa_18h_forest.csv")
+fwrite(bn_20h_forest, "D:/QBIO7008/Bird_accoustic/Outputs/bn_cocoa_20h_forest.csv")
 
-# conclusion BN18h data does not have all plots and subplots because they dont have 18h
+# conclusion BN20h data does not have all plots and subplots because they dont have 20h
 
 ###############################################################################
 # OBJECTIVE 3 - RICHNESS DATASETS (ALL VALIDATED SUBPLOTS)
@@ -1029,47 +1135,50 @@ write.csv(bn_lfl_richness,
           "D:/QBIO7008/Bird_accoustic/Outputs/bn_lfl_richness_all_subplots.csv",
           row.names = FALSE)
 
-####BN 18h richness (all validated subplots in 18h window) ----
-# 7 subplots dropped due to insufficient recording coverage (< 17h of detections)
-# C102 excluded - recordings end at 23:00 on day 1
-# Window: 14:00 day 1 to 08:00 day 2
+####BN 20h richness (all validated subplots in 20h window) ----
 
-bn_18h_richness <- map_dfr(thresholds, function(thr) {
-  bn_18h_forest |>
+
+bn_20h_richness <- map_dfr(thresholds, function(thr) {
+  bn_20h_forest |>
     filter(confidence >= thr,
-           subplot_ID %in% validated_subplots$subplot_ID) |>
+           subplot_ID %in% subplots_long_ok) |>
     group_by(subplot_ID) |>
     summarise(richness = n_distinct(scientific_name), .groups = "drop") |>
     mutate(threshold = thr) |>
-    # right_join only to subplots actually in bn_18h - not all validated subplots
     right_join(
       validated_subplots |>
-        filter(subplot_ID %in% unique(bn_18h$subplot_ID)) |>
+        filter(subplot_ID %in% subplots_long_ok) |>
         select(subplot_ID),
       by = "subplot_ID") |>
     mutate(richness  = replace_na(richness, 0),
            threshold = replace_na(threshold, thr))
 }) |>
   pivot_wider(names_from = threshold, values_from = richness,
-              names_prefix = "richness_bn_18h_") |>
+              names_prefix = "richness_bn_20h_") |>
   mutate(plot_ID = str_extract(subplot_ID, "^C\\d+"))
 
 # Check
-nrow(bn_18h_richness)
+nrow(bn_20h_richness)
+unique(bn_20h_richness$subplot_ID)
+
+# Check
+nrow(bn_20h_richness)
+
+#checking at each confidence level
 map_dfr(thresholds, function(thr) {
-  col <- paste0("richness_bn_18h_", thr)
-  bn_18h_richness |>
+  col <- paste0("richness_bn_20h_", thr)
+  bn_20h_richness |>
     summarise(n_subplots  = n(),
               n_with_data = sum(.data[[col]] > 0),
               n_zero      = sum(.data[[col]] == 0)) |>
     mutate(threshold = thr)
 }) |> data.frame()
 
-write.csv(bn_18h_richness,
-          "D:/QBIO7008/Bird_accoustic/Outputs/bn_18h_richness_all_subplots.csv",
+write.csv(bn_20h_richness,
+          "D:/QBIO7008/Bird_accoustic/Outputs/bn_20h_richness_all_subplots.csv",
           row.names = FALSE)
 
-####Traditional survey richness (pooled M+E, all validated subplots)
+####point count survey richness (pooled M+E, all validated subplots)
 
 trad_richness <- all_surveys_forest_birds |>
   filter(ID %in% validated_subplots$subplot_ID) |>
@@ -1101,13 +1210,18 @@ write.csv(richness_lfl,
           "D:/QBIO7008/Bird_accoustic/Outputs/richness_lfl_dataset_all_subplots.csv",
           row.names = FALSE)
 
-# 18h (BN 18h vs Trad 20min)
-richness_18h <- trad_richness |>
-  left_join(bn_18h_richness, by = c("subplot_ID", "plot_ID"))
+# 20h (BN 20h vs Trad 20min)
+richness_20h <- trad_richness |>
+  filter(subplot_ID %in% subplots_long_ok) |>
+  left_join(bn_20h_richness, by = c("subplot_ID", "plot_ID"))
 
-nrow(richness_18h)
-write.csv(richness_18h,
-          "D:/QBIO7008/Bird_accoustic/Outputs/richness_18h_dataset_all_subplots.csv",
+# Check
+nrow(richness_20h)
+unique(richness_20h$subplot_ID)
+
+nrow(richness_20h)
+write.csv(richness_20h,
+          "D:/QBIO7008/Bird_accoustic/Outputs/richness_20h_dataset_all_subplots.csv",
           row.names = FALSE)
 
 ###############################################################################
@@ -1121,12 +1235,12 @@ plot_shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/plot_shade_cover.csv")
 richness_lfl <- richness_lfl |>
   left_join(plot_shade, by = c("plot_ID" = "plot_id"))
 
-richness_18h <- richness_18h |>
+richness_20h <- richness_20h |>
   left_join(plot_shade, by = c("plot_ID" = "plot_id"))
 
 # Check for NAs
 cat("NAs in lfl shade:", sum(is.na(richness_lfl$plot_shade)), "\n")
-cat("NAs in 18h shade:", sum(is.na(richness_18h$plot_shade)), "\n")
+cat("NAs in 20h shade:", sum(is.na(richness_20h$plot_shade)), "\n")
 
 #Distribution check
 
@@ -1134,13 +1248,13 @@ hist(richness_lfl$plot_shade,
      main = "Shade cover distribution", xlab = "Plot shade cover")
 
 
-### SENSITIVITY ANALYSIS - slope concordance with traditional survey
+### SENSITIVITY ANALYSIS - slope concordance with point count survey
 
-#Reference model: traditional survey only 
+#Reference model: point count survey only 
 
 model_trad_lfl <- glmmTMB(richness_trad ~ plot_shade + (1|plot_ID),
-                      data   = richness_lfl,
-                      family = poisson) #using plots as random effect - grouping - subplot not nested in it so to not introduce convergence issues
+                          data   = richness_lfl,
+                          family = poisson) #using plots as random effect - grouping - subplot not nested in it so to not introduce convergence issues
 
 summary(model_trad_lfl)
 deviance(model_trad_lfl) / df.residual(model_trad_lfl)
@@ -1156,17 +1270,17 @@ trad_slope_lfl    <- unname(fixef(model_trad_lfl)$cond["plot_shade"])
 trad_slope_lfl_se <- unname(sqrt(diag(vcov(model_trad_lfl)$cond))["plot_shade"])
 trad_p_lfl        <- unname(summary(model_trad_lfl)$coefficients$cond["plot_shade", "Pr(>|z|)"])
 
-cat("Traditional survey shade slope:", round(trad_slope_lfl, 4), "\n")
-cat("Traditional survey slope SE:   ", round(trad_slope_lfl_se, 4), "\n")
-cat("Traditional survey p-value:    ", round(trad_p_lfl, 3), "\n")
+cat("point count survey shade slope:", round(trad_slope_lfl, 4), "\n")
+cat("point count survey slope SE:   ", round(trad_slope_lfl_se, 4), "\n")
+cat("point count survey p-value:    ", round(trad_p_lfl, 3), "\n")
 
 #LFL sensitivity: fit one model per threshold
 
 lfl_sensitivity_models <- map(thresholds, function(thr) {
   col <- paste0("richness_bn_lfl_", thr)
   glmmTMB(richness_bn ~ plot_shade + (1|plot_ID) ,
-      data   = richness_lfl |> rename(richness_bn = all_of(col)),
-      family = poisson)
+          data   = richness_lfl |> rename(richness_bn = all_of(col)),
+          family = poisson)
 })
 names(lfl_sensitivity_models) <- paste0("thr_", thresholds)
 
@@ -1177,7 +1291,7 @@ walk2(lfl_sensitivity_models, thresholds, function(m, thr) {
   plot(sim, main = paste("LFL BirdNET - threshold", thr))
 }) #0.3 till 0.9 is ok
 
-# Extract slopes and compare to traditional survey
+# Extract slopes and compare to point count survey
 
 lfl_sensitivity <- map_dfr(thresholds, function(thr) {
   col <- paste0("richness_bn_lfl_", thr)
@@ -1213,70 +1327,70 @@ write.csv(lfl_sensitivity,
           "D:/QBIO7008/Bird_accoustic/Outputs/sensitivity_lfl.csv",
           row.names = FALSE)
 
-# 18h reference model
+# 20h reference model
 
-model_trad_18h <- glmmTMB(richness_trad ~ plot_shade + (1|plot_ID),
-                          data   = richness_18h |>
-                            filter(!is.na(richness_bn_18h_0.5)),
+model_trad_20h <- glmmTMB(richness_trad ~ plot_shade + (1|plot_ID),
+                          data   = richness_20h |>
+                            filter(!is.na(richness_bn_20h_0.5)),
                           family = poisson)
 
-summary(model_trad_18h)
-deviance(model_trad_18h) / df.residual(model_trad_18h)
+summary(model_trad_20h)
+deviance(model_trad_20h) / df.residual(model_trad_20h)
 
 #check
-sim_res_trad_18h <- simulateResiduals(model_trad_18h)
-plot(sim_res_trad_18h) # minor issue but not so relevant to fit
+sim_res_trad_20h <- simulateResiduals(model_trad_20h)
+plot(sim_res_trad_20h) # minor issue but not so relevant to fit
 
 #slope and SE
-trad_slope_18h    <- unname(fixef(model_trad_18h)$cond["plot_shade"])
-trad_slope_18h_se <- unname(sqrt(diag(vcov(model_trad_18h)$cond))["plot_shade"])
-trad_p_18h        <- unname(summary(model_trad_18h)$coefficients$cond["plot_shade", "Pr(>|z|)"])
+trad_slope_20h    <- unname(fixef(model_trad_20h)$cond["plot_shade"])
+trad_slope_20h_se <- unname(sqrt(diag(vcov(model_trad_20h)$cond))["plot_shade"])
+trad_p_20h        <- unname(summary(model_trad_20h)$coefficients$cond["plot_shade", "Pr(>|z|)"])
 
-cat("Traditional survey shade slope (18h):", round(trad_slope_18h, 4), "\n")
-cat("Traditional survey slope SE (18h):   ", round(trad_slope_18h_se, 4), "\n")
-cat("Traditional survey p-value (18h):    ", round(trad_p_18h, 3), "\n")
+cat("point count survey shade slope (20h):", round(trad_slope_20h, 4), "\n")
+cat("point count survey slope SE (20h):   ", round(trad_slope_20h_se, 4), "\n")
+cat("point count survey p-value (20h):    ", round(trad_p_20h, 3), "\n")
 
-#18h sensitivity: fit one model per threshold
+#20h sensitivity: fit one model per threshold
 
-h18_sensitivity_models <- map(thresholds, function(thr) {
-  col <- paste0("richness_bn_18h_", thr)
-  df  <- richness_18h |>
+h20_sensitivity_models <- map(thresholds, function(thr) {
+  col <- paste0("richness_bn_20h_", thr)
+  df  <- richness_20h |>
     filter(!is.na(.data[[col]])) |>
     rename(richness_bn = all_of(col))
   glmmTMB(richness_bn ~ plot_shade + (1|plot_ID),
           data   = df,
           family = poisson)
 })
-names(h18_sensitivity_models) <- paste0("thr_", thresholds)
+names(h20_sensitivity_models) <- paste0("thr_", thresholds)
 
 #DHARMa diagnostics 
 
-walk2(h18_sensitivity_models, thresholds, function(m, thr) {
+walk2(h20_sensitivity_models, thresholds, function(m, thr) {
   sim <- simulateResiduals(m)
-  plot(sim, main = paste("18h BirdNET - threshold", thr))
+  plot(sim, main = paste("20h BirdNET - threshold", thr))
 })
 
-# Extract slopes and compare to traditional survey
+# Extract slopes and compare to point count survey
 
-h18_sensitivity <- map_dfr(thresholds, function(thr) {
-  col <- paste0("richness_bn_18h_", thr)
-  m   <- h18_sensitivity_models[[paste0("thr_", thr)]]
+h20_sensitivity <- map_dfr(thresholds, function(thr) {
+  col <- paste0("richness_bn_20h_", thr)
+  m   <- h20_sensitivity_models[[paste0("thr_", thr)]]
   
   disp        <- deviance(m) / df.residual(m)
   bn_slope    <- unname(fixef(m)$cond["plot_shade"])
   bn_slope_se <- unname(sqrt(diag(vcov(m)$cond))["plot_shade"])
   bn_p        <- unname(summary(m)$coefficients$cond["plot_shade", "Pr(>|z|)"])
-  slope_diff  <- bn_slope - trad_slope_18h
-  pooled_se   <- sqrt(bn_slope_se^2 + trad_slope_18h_se^2)
+  slope_diff  <- bn_slope - trad_slope_20h
+  pooled_se   <- sqrt(bn_slope_se^2 + trad_slope_20h_se^2)
   z_stat      <- slope_diff / pooled_se
   p_diff      <- 2 * pnorm(abs(z_stat), lower.tail = FALSE)
   
   data.frame(
     threshold         = thr,
-    n_with_detections = sum(!is.na(richness_18h[[col]]) & richness_18h[[col]] > 0),
+    n_with_detections = sum(!is.na(richness_20h[[col]]) & richness_20h[[col]] > 0),
     dispersion        = round(disp, 2),
-    trad_slope        = round(trad_slope_18h, 4),
-    trad_p_value      = round(trad_p_18h, 3),
+    trad_slope        = round(trad_slope_20h, 4),
+    trad_p_value      = round(trad_p_20h, 3),
     bn_slope          = round(bn_slope, 4),
     bn_p_value        = round(bn_p, 3),
     slope_diff        = round(slope_diff, 4),
@@ -1285,11 +1399,11 @@ h18_sensitivity <- map_dfr(thresholds, function(thr) {
   )
 })
 
-cat("=== 18H SENSITIVITY ANALYSIS ===\n")
-print(h18_sensitivity)
+cat("=== 20H SENSITIVITY ANALYSIS ===\n")
+print(h20_sensitivity)
 
-write.csv(h18_sensitivity,
-          "D:/QBIO7008/Bird_accoustic/Outputs/sensitivity_18h.csv",
+write.csv(h20_sensitivity,
+          "D:/QBIO7008/Bird_accoustic/Outputs/sensitivity_20h.csv",
           row.names = FALSE)
 
 #### building a table for the report
@@ -1305,8 +1419,8 @@ gt_sensitivity_lfl <- lfl_sensitivity |>
     threshold         = "Confidence threshold",
     n_with_detections = "Subplots with detections",
     dispersion        = "Dispersion",
-    trad_slope        = "Traditional slope",
-    trad_p_value      = "Traditional p",
+    trad_slope        = "point count slope",
+    trad_p_value      = "point count p",
     bn_slope          = "BirdNET slope",
     bn_p_value        = "BirdNET p",
     slope_diff        = "Slope difference",
@@ -1314,7 +1428,7 @@ gt_sensitivity_lfl <- lfl_sensitivity |>
     p_diff            = "p (difference)"
   ) |>
   tab_footnote(
-    footnote = "Slopes are on the log scale from Poisson GLMM. Traditional survey slope is the reference model fitted to traditional survey richness only. BirdNET slope is fitted separately per threshold. p (difference) is the two-sided z-test p-value for the difference between BirdNET and traditional survey slopes."
+    footnote = "Slopes are on the log scale from Poisson GLMM. point count survey slope is the reference model fitted to point count survey richness only. BirdNET slope is fitted separately per threshold. p (difference) is the two-sided z-test p-value for the difference between BirdNET and point count survey slopes."
   ) |>
   tab_style(
     style = cell_fill(color = "grey90"),
@@ -1327,19 +1441,19 @@ gt_sensitivity_lfl <- lfl_sensitivity |>
 
 gt_sensitivity_lfl
 
-# 18h sensitivity table 
+# 20h sensitivity table 
 
-gt_sensitivity_18h <- h18_sensitivity |>
+gt_sensitivity_20h <- h20_sensitivity |>
   gt() |>
   tab_header(
-    title = "Appendix 1b. Sensitivity analysis — Extended window (18-hour recording)"
+    title = "Appendix 1b. Sensitivity analysis — Extended window (20-hour recording)"
   ) |>
   cols_label(
     threshold         = "Confidence threshold",
     n_with_detections = "Subplots with detections",
     dispersion        = "Dispersion",
-    trad_slope        = "Traditional slope",
-    trad_p_value      = "Traditional p",
+    trad_slope        = "point count slope",
+    trad_p_value      = "point count p",
     bn_slope          = "BirdNET slope",
     bn_p_value        = "BirdNET p",
     slope_diff        = "Slope difference",
@@ -1347,7 +1461,7 @@ gt_sensitivity_18h <- h18_sensitivity |>
     p_diff            = "p (difference)"
   ) |>
   tab_footnote(
-    footnote = "Slopes are on the log scale from Poisson GLMM. Traditional survey slope is the reference model fitted to traditional survey richness only. BirdNET slope is fitted separately per threshold. p (difference) is the two-sided z-test p-value for the difference between BirdNET and traditional survey slopes."
+    footnote = "Slopes are on the log scale from Poisson GLMM. point count survey slope is the reference model fitted to point count survey richness only. BirdNET slope is fitted separately per threshold. p (difference) is the two-sided z-test p-value for the difference between BirdNET and point count survey slopes."
   ) |>
   tab_style(
     style = cell_fill(color = "grey90"),
@@ -1358,15 +1472,15 @@ gt_sensitivity_18h <- h18_sensitivity |>
     heading.align   = "left"
   ) 
 
-gt_sensitivity_18h
+gt_sensitivity_20h
 
 # Save both to Word 
 
 gt_sensitivity_lfl |>
   gtsave("D:/QBIO7008/Bird_accoustic/Outputs/appendix1a_sensitivity_lfl.docx")
 
-gt_sensitivity_18h |>
-  gtsave("D:/QBIO7008/Bird_accoustic/Outputs/appendix1b_sensitivity_18h.docx")
+gt_sensitivity_20h |>
+  gtsave("D:/QBIO7008/Bird_accoustic/Outputs/appendix1b_sensitivity_20h.docx")
 
 ###############################################################################
 # MAIN MODELS
@@ -1390,7 +1504,7 @@ model_lfl <- glmmTMB(
                  values_to = "richness") |>
     mutate(method = factor(method,
                            levels = c("richness_trad", "richness_bn"),
-                           labels = c("Traditional", "BirdNET"))),
+                           labels = c("point count", "BirdNET"))),
   family = poisson)
 
 summary(model_lfl)
@@ -1399,29 +1513,29 @@ deviance(model_lfl) / df.residual(model_lfl)
 sim_res_lfl <- simulateResiduals(model_lfl)
 plot(sim_res_lfl)
 
-#18h main model
+#20h main model
 
 
-model_18h <- glmmTMB(
+model_20h <- glmmTMB(
   richness ~ plot_shade * method + (1|plot_ID),
-  data = richness_18h |>
-    filter(!is.na(richness_bn_18h_0.5)) |>
+  data = richness_20h |>
+    filter(!is.na(richness_bn_20h_0.5)) |>
     select(subplot_ID, plot_ID, plot_shade,
            richness_trad,
-           richness_bn = richness_bn_18h_0.5) |>
+           richness_bn = richness_bn_20h_0.5) |>
     pivot_longer(cols      = c(richness_trad, richness_bn),
                  names_to  = "method",
                  values_to = "richness") |>
     mutate(method = factor(method,
                            levels = c("richness_trad", "richness_bn"),
-                           labels = c("Traditional", "BirdNET"))),
+                           labels = c("point count", "BirdNET"))),
   family = poisson)
 
-summary(model_18h)
-deviance(model_18h) / df.residual(model_18h)
+summary(model_20h)
+deviance(model_20h) / df.residual(model_20h)
 
-sim_res_18h <- simulateResiduals(model_18h)
-plot(sim_res_18h)
+sim_res_20h <- simulateResiduals(model_20h)
+plot(sim_res_20h)
 
 
 ################################################################################
@@ -1445,14 +1559,14 @@ lfl_raw <- richness_lfl |>
                names_to = "method", values_to = "richness") |>
   mutate(method = factor(method,
                          levels = c("richness_trad", "richness_bn"),
-                         labels = c("Traditional survey", "BirdNET (0.5 confidence level)")))
+                         labels = c("point count survey", "BirdNET (0.5 confidence level)")))
 
 # Like-for-like: predicted values with 95% CI
 lfl_pred <- expand.grid(
   plot_shade = shade_seq,
-  method     = factor(c("Traditional survey", "BirdNET (0.5 confidence level)"))
+  method     = factor(c("point count survey", "BirdNET (0.5 confidence level)"))
 ) |>
-  mutate(method_internal = ifelse(method == "Traditional survey", "Traditional", "BirdNET"))
+  mutate(method_internal = ifelse(method == "point count survey", "point count", "BirdNET"))
 
 # Predictions on the link (log) scale with SE
 # re.form = NA gives population-level predictions excluding random effects
@@ -1460,7 +1574,7 @@ lfl_fit <- predict(model_lfl,
                    newdata = data.frame(
                      plot_shade = lfl_pred$plot_shade,
                      method     = factor(lfl_pred$method_internal,
-                                         levels = c("Traditional", "BirdNET"))
+                                         levels = c("point count", "BirdNET"))
                    ),
                    type    = "link",
                    se.fit  = TRUE,
@@ -1505,37 +1619,37 @@ fig_lfl
 ggsave("D:/QBIO7008/Bird_accoustic/Plots/fig_richness_lfl.png",
        fig_lfl, width = 6, height = 5, dpi = 300)
 
-####18h: raw data
+####20h: raw data
 
-h18_raw <- richness_18h |>
-  filter(!is.na(richness_bn_18h_0.5)) |>
+h20_raw <- richness_20h |>
+  filter(!is.na(richness_bn_20h_0.5)) |>
   select(subplot_ID, plot_ID, plot_shade, richness_trad,
-         richness_bn = richness_bn_18h_0.5) |>
+         richness_bn = richness_bn_20h_0.5) |>
   pivot_longer(cols = c(richness_trad, richness_bn),
                names_to = "method", values_to = "richness") |>
   mutate(method = factor(method,
                          levels = c("richness_trad", "richness_bn"),
-                         labels = c("Traditional survey", "BirdNET (0.5 confidence level)")))
+                         labels = c("point count survey", "BirdNET (0.5 confidence level)")))
 
 #predicted values with 95% CI 
 
-shade_seq_18h <- seq(min(richness_18h$plot_shade, na.rm = TRUE),
-                     max(richness_18h$plot_shade, na.rm = TRUE),
+shade_seq_20h <- seq(min(richness_20h$plot_shade, na.rm = TRUE),
+                     max(richness_20h$plot_shade, na.rm = TRUE),
                      length.out = 100)
 
-h18_pred <- expand.grid(
-  plot_shade = shade_seq_18h,
-  method     = factor(c("Traditional survey", "BirdNET (0.5 confidence level)"))
+h20_pred <- expand.grid(
+  plot_shade = shade_seq_20h,
+  method     = factor(c("point count survey", "BirdNET (0.5 confidence level)"))
 ) |>
-  mutate(method_internal = ifelse(method == "Traditional survey", "Traditional", "BirdNET"))
+  mutate(method_internal = ifelse(method == "point count survey", "point count", "BirdNET"))
 
 # Predictions on the link (log) scale with SE
 # re.form = NA gives population-level predictions excluding random effects
-h18_fit <- predict(model_18h,
+h20_fit <- predict(model_20h,
                    newdata = data.frame(
-                     plot_shade = h18_pred$plot_shade,
-                     method     = factor(h18_pred$method_internal,
-                                         levels = c("Traditional", "BirdNET"))
+                     plot_shade = h20_pred$plot_shade,
+                     method     = factor(h20_pred$method_internal,
+                                         levels = c("point count", "BirdNET"))
                    ),
                    type    = "link",
                    se.fit  = TRUE,
@@ -1544,25 +1658,25 @@ h18_fit <- predict(model_18h,
 # Back-transform to response scale (species counts) using exp()
 # CI computed on log scale first, then back-transformed to keep intervals
 # asymmetric and bounded above zero - this is correct for Poisson GLMM
-h18_pred <- h18_pred |>
+h20_pred <- h20_pred |>
   mutate(
-    fit    = exp(h18_fit$fit),                            # predicted richness
-    ci_low = exp(h18_fit$fit - 1.96 * h18_fit$se.fit),   # lower 95% CI
-    ci_up  = exp(h18_fit$fit + 1.96 * h18_fit$se.fit)    # upper 95% CI
+    fit    = exp(h20_fit$fit),                            # predicted richness
+    ci_low = exp(h20_fit$fit - 1.96 * h20_fit$se.fit),   # lower 95% CI
+    ci_up  = exp(h20_fit$fit + 1.96 * h20_fit$se.fit)    # upper 95% CI
   )
 
 
 #plot
 
 
-fig_18h <- ggplot() +
-  geom_ribbon(data = h18_pred,
+fig_20h <- ggplot() +
+  geom_ribbon(data = h20_pred,
               aes(x = plot_shade, ymin = ci_low, ymax = ci_up, group = method),
               fill = "grey80", alpha = 0.5, show.legend = FALSE) +
-  geom_point(data = h18_raw,
+  geom_point(data = h20_raw,
              aes(x = plot_shade, y = richness, colour = method),
              alpha = 0.5, size = 2) +
-  geom_line(data = h18_pred,
+  geom_line(data = h20_pred,
             aes(x = plot_shade, y = fit, colour = method),
             linewidth = 1) +
   scale_colour_brewer(palette = "Dark2") +
@@ -1570,15 +1684,15 @@ fig_18h <- ggplot() +
   labs(
     x      = "Plot shade cover",
     y      = "Forest bird species richness",
-    title  = "Extended window (18-hour recording)"
+    title  = "Extended window (20-hour recording)"
   ) +
   theme_classic() +
   theme(legend.position = "bottom")
 
-fig_18h
+fig_20h
 
-ggsave("D:/QBIO7008/Bird_accoustic/Plots/fig_richness_18h.png",
-       fig_18h, width = 6, height = 5, dpi = 300)
+ggsave("D:/QBIO7008/Bird_accoustic/Plots/fig_richness_20h.png",
+       fig_20h, width = 6, height = 5, dpi = 300)
 
 
 
@@ -1598,29 +1712,29 @@ lfl_coefs <- summary(model_lfl)$coefficients$cond |>
          z_lfl        = `z value`,
          p_lfl        = `Pr(>|z|)`)
 
-# 18h model (glmmTMB)
-h18_coefs <- summary(model_18h)$coefficients$cond |>
+# 20h model (glmmTMB)
+h20_coefs <- summary(model_20h)$coefficients$cond |>
   as.data.frame() |>
   tibble::rownames_to_column("term") |>
-  rename(estimate_18h = Estimate,
-         se_18h       = `Std. Error`,
-         z_18h        = `z value`,
-         p_18h        = `Pr(>|z|)`)
+  rename(estimate_20h = Estimate,
+         se_20h       = `Std. Error`,
+         z_20h        = `z value`,
+         p_20h        = `Pr(>|z|)`)
 
 
 # Join and relabel
 model_table <- lfl_coefs |>
-  left_join(h18_coefs, by = "term") |>
+  left_join(h20_coefs, by = "term") |>
   mutate(term = recode(term,
-                       "(Intercept)"              = "Intercept (Traditional survey, shade = 0)",
+                       "(Intercept)"              = "Intercept (point count survey, shade = 0)",
                        "plot_shade"               = "Shade tree cover (plot level)",
-                       "methodBirdNET"            = "Difference in intercept (BirdNET vs Traditional survey)",
-                       "plot_shade:methodBirdNET" = "Difference in shade slope (BirdNET vs Traditional survey)"
+                       "methodBirdNET"            = "Difference in intercept (BirdNET vs point count survey)",
+                       "plot_shade:methodBirdNET" = "Difference in shade slope (BirdNET vs point count survey)"
   )) |>
   mutate(across(c(estimate_lfl, se_lfl, z_lfl,
-                  estimate_18h, se_18h, z_18h), ~ round(.x, 3)),
+                  estimate_20h, se_20h, z_20h), ~ round(.x, 3)),
          p_lfl = round(p_lfl, 4),
-         p_18h = round(p_18h, 4))
+         p_20h = round(p_20h, 4))
 
 
 # Build gt table
@@ -1634,8 +1748,8 @@ gt_table <- model_table |>
     columns = c(estimate_lfl, se_lfl, z_lfl, p_lfl)
   ) |>
   tab_spanner(
-    label   = "Extended window (18-hour recording)",
-    columns = c(estimate_18h, se_18h, z_18h, p_18h)
+    label   = "Extended window (20-hour recording)",
+    columns = c(estimate_20h, se_20h, z_20h, p_20h)
   ) |>
   cols_label(
     term         = "Term",
@@ -1643,13 +1757,13 @@ gt_table <- model_table |>
     se_lfl       = "SE",
     z_lfl        = "z",
     p_lfl        = "p",
-    estimate_18h = "Estimate",
-    se_18h       = "SE",
-    z_18h        = "z",
-    p_18h        = "p"
+    estimate_20h = "Estimate",
+    se_20h       = "SE",
+    z_20h        = "z",
+    p_20h        = "p"
   ) |>
   tab_footnote(
-    footnote = "Reference level is traditional point count survey. BirdNET detections filtered at 0.5 confidence threshold. Estimates are on the log scale."
+    footnote = "Reference level is point count point count survey. BirdNET detections filtered at 0.5 confidence threshold. Estimates are on the log scale."
   ) |>
   tab_options(
     table.font.size  = 12,
@@ -1678,7 +1792,7 @@ min(richness_lfl$richness_trad)
 mean(richness_lfl$richness_trad)
 sd(richness_lfl$richness_trad)
 
-# Traditional survey detections (filtered to subplots in richness_lfl)
+# point count survey detections (filtered to subplots in richness_lfl)
 all_surveys_forest_birds |>
   filter(ID %in% richness_lfl$subplot_ID) |>
   nrow()
@@ -1702,35 +1816,40 @@ mean(richness_lfl$plot_shade)
 sd(richness_lfl$plot_shade)
 
 # number of plots included like for like
-unique(richness_18h$plot_ID) #21
+unique(richness_20h$plot_ID) #21
 
 # number of subplots included with M and E surveys pooled 
-unique(richness_18h$subplot_ID) #41
+unique(richness_20h$subplot_ID) #37
 
 
-# 18h BirdNET detections at 0.5 (filtered to subplots in richness_18h with data)
-bn_18h_forest |>
-  filter(subplot_ID %in% richness_18h$subplot_ID,
+# 20h BirdNET detections at 0.5 (filtered to subplots in richness_20h with data)
+bn_20h_forest |>
+  filter(subplot_ID %in% richness_20h$subplot_ID,
          confidence >= 0.5) |>
   nrow()
 
-#18h BirdNET range and mean - this dataset includes 30_O that is NA for the 18H
-max(richness_18h$richness_bn_18h_0.5, na.rm = TRUE)
-min(richness_18h$richness_bn_18h_0.5, na.rm = TRUE)
-mean(richness_18h$richness_bn_18h_0.5, na.rm = TRUE)
-sd(richness_18h$richness_bn_18h_0.5, na.rm = TRUE)
+# point count survey detections (filtered to subplots in richness_lfl)
+all_surveys_forest_birds |>
+  filter(ID %in% richness_20h$subplot_ID) |>
+  nrow() #1275
+
+#20h BirdNET range and mean - this dataset includes 30_O that is NA for the 20H
+max(richness_20h$richness_bn_20h_0.5, na.rm = TRUE)
+min(richness_20h$richness_bn_20h_0.5, na.rm = TRUE)
+mean(richness_20h$richness_bn_20h_0.5, na.rm = TRUE)
+sd(richness_20h$richness_bn_20h_0.5, na.rm = TRUE)
 
 #shade range and mean
-max(richness_18h$plot_shade)
-min(richness_18h$plot_shade)
-mean(richness_18h$plot_shade)
-sd(richness_18h$plot_shade)
+max(richness_20h$plot_shade)
+min(richness_20h$plot_shade)
+mean(richness_20h$plot_shade)
+sd(richness_20h$plot_shade)
 
 # min max and average richness trad surveys
-max(richness_18h$richness_trad)
-min(richness_18h$richness_trad)
-mean(richness_18h$richness_trad)
-sd(richness_18h$richness_trad)
+max(richness_20h$richness_trad)
+min(richness_20h$richness_trad)
+mean(richness_20h$richness_trad)
+sd(richness_20h$richness_trad)
 
 # Extract coefficients from LFL model (glmmTMB)
 lfl_coefs <- summary(model_lfl)$coefficients$cond
@@ -1779,26 +1898,26 @@ fig_hist_lfl
 ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_hist_lfl.png",
        fig_hist_lfl, width = 6, height = 4, dpi = 300)
 
-# 18h 
+# 20h 
 
-fig_hist_18h <- bn_18h_forest |>
-  filter(subplot_ID %in% richness_18h$subplot_ID) |>
+fig_hist_20h <- bn_20h_forest |>
+  filter(subplot_ID %in% richness_20h$subplot_ID) |>
   ggplot(aes(x = confidence)) +
   geom_histogram(binwidth = 0.05, fill = "grey60", colour = "white") +
   labs(
     x     = "BirdNET confidence level",
     y     = "Number of detections",
-    title = "Extended window (18-hour recording | Forest species)"
+    title = "Extended window (20-hour recording | Forest species)"
   ) +
   theme_classic()
 
-fig_hist_18h
+fig_hist_20h
 
-ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_hist_18h.png",
-       fig_hist_18h, width = 6, height = 4, dpi = 300)
+ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_hist_20h.png",
+       fig_hist_20h, width = 6, height = 4, dpi = 300)
 
 #### raw data panels
-# Build long format with all thresholds plus traditional survey
+# Build long format with all thresholds plus point count survey
 lfl_scatter <- map_dfr(thresholds, function(thr) {
   col <- paste0("richness_bn_lfl_", thr)
   richness_lfl |>
@@ -1808,19 +1927,19 @@ lfl_scatter <- map_dfr(thresholds, function(thr) {
   bind_rows(
     richness_lfl |>
       select(subplot_ID, plot_ID, plot_shade, richness = richness_trad) |>
-      mutate(panel = "Traditional survey")
+      mutate(panel = "point count survey")
   ) |>
   mutate(panel = factor(panel,
-                        levels = c("Traditional survey",
+                        levels = c("point count survey",
                                    paste0("BirdNET ", thresholds))))
 
 # Fixed axis limits
 lfl_scatter_max <- max(lfl_scatter$richness, na.rm = TRUE)
 
-# Colour palette - 10 panels (1 traditional + 9 thresholds)
+# Colour palette - 10 panels (1 point count + 9 thresholds)
 panel_colours <- setNames(
   c("darkorange", viridis::viridis(9)),
-  c("Traditional survey", paste0("BirdNET ", thresholds))
+  c("point count survey", paste0("BirdNET ", thresholds))
 )
 
 fig_scatter_lfl <- ggplot(lfl_scatter,
@@ -1848,44 +1967,44 @@ fig_scatter_lfl
 ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_scatter_lfl.png",
        fig_scatter_lfl, width = 12, height = 6, dpi = 300)
 
-# Scatterplot richness vs shade — 18h 
+# Scatterplot richness vs shade — 20h 
 
-h18_scatter <- map_dfr(thresholds, function(thr) {
-  col <- paste0("richness_bn_18h_", thr)
-  richness_18h |>
+h20_scatter <- map_dfr(thresholds, function(thr) {
+  col <- paste0("richness_bn_20h_", thr)
+  richness_20h |>
     filter(!is.na(.data[[col]])) |>
     select(subplot_ID, plot_ID, plot_shade, richness = all_of(col)) |>
     mutate(panel = paste0("BirdNET ", thr))
 }) |>
   bind_rows(
-    richness_18h |>
-      filter(!is.na(richness_bn_18h_0.5)) |>
+    richness_20h |>
+      filter(!is.na(richness_bn_20h_0.5)) |>
       select(subplot_ID, plot_ID, plot_shade, richness = richness_trad) |>
-      mutate(panel = "Traditional survey")
+      mutate(panel = "point count survey")
   ) |>
   mutate(panel = factor(panel,
-                        levels = c("Traditional survey",
+                        levels = c("point count survey",
                                    paste0("BirdNET ", thresholds))))
 
 # Fixed axis limits
-h18_scatter_max <- max(h18_scatter$richness, na.rm = TRUE)
+h20_scatter_max <- max(h20_scatter$richness, na.rm = TRUE)
 
-# Colour palette - 10 panels (1 traditional + 9 thresholds)
+# Colour palette - 10 panels (1 point count + 9 thresholds)
 panel_colours <- setNames(
   c("darkorange", viridis::viridis(9)),
-  c("Traditional survey", paste0("BirdNET ", thresholds))
+  c("point count survey", paste0("BirdNET ", thresholds))
 )
 
-fig_scatter_18h <- ggplot(h18_scatter,
+fig_scatter_20h <- ggplot(h20_scatter,
                           aes(x = plot_shade, y = richness, colour = panel)) +
   geom_point(alpha = 0.6, size = 1.5) +
   facet_wrap(~ panel, ncol = 5) +
   scale_colour_manual(values = panel_colours) +
-  scale_y_continuous(limits = c(0, h18_scatter_max)) +
+  scale_y_continuous(limits = c(0, h20_scatter_max)) +
   labs(
     x     = "Plot shade cover",
     y     = "Forest bird species richness",
-    title = "Extended window (18-hour recording | Forest species)"
+    title = "Extended window (20-hour recording | Forest species)"
   ) +
   theme_classic() +
   theme(
@@ -1896,99 +2015,7 @@ fig_scatter_18h <- ggplot(h18_scatter,
     legend.position  = "none"
   )
 
-fig_scatter_18h
+fig_scatter_20h
 
-ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_scatter_18h.png",
-       fig_scatter_18h, width = 12, height = 6, dpi = 300)
-
-
-#### plot showing the recording hours
-
-# Recording span Gantt chart 
-
-# Build recording span from bn_w filtered to validated subplots (LFL analysis)
-recording_span <- bn_w[subplot_ID %in% validated_subplots$subplot_ID] |>
-  group_by(subplot_ID) |>
-  summarise(
-    first_detection = min(detection_datetime),
-    last_detection  = max(detection_datetime),
-    .groups = "drop"
-  ) |>
-  mutate(
-    included   = ifelse(subplot_ID %in% subplots_18h_ok, "Included", "Excluded"),
-    subplot_ID = factor(subplot_ID, levels = sort(unique(subplot_ID))),
-    # Extract time of day in decimal hours
-    first_hour = hour(first_detection) + minute(first_detection) / 60,
-    last_hour  = hour(last_detection)  + minute(last_detection)  / 60,
-    # Add 24 only if recording crosses into a different date
-    crosses_midnight = as.Date(last_detection) > as.Date(first_detection),
-    last_hour  = ifelse(crosses_midnight, last_hour + 24, last_hour)
-  )
-
-# Split bars at midnight for subplots crossing midnight
-
-recording_span_split <- recording_span |>
-  mutate(crosses_midnight = last_hour > 24) |>
-  rowwise() |>
-  reframe(
-    subplot_ID = subplot_ID,
-    included   = included,
-    first_hour = if (crosses_midnight) c(first_hour, 24) else first_hour,
-    last_hour  = if (crosses_midnight) c(24, last_hour)  else last_hour
-  )
-
-# Y axis breaks and labels 
-
-hour_breaks <- seq(0, 42, by = 2)
-hour_labels <- c(
-  "00:00", "02:00", "04:00", "06:00", "08:00", "10:00",
-  "12:00", "14:00", "16:00", "18:00", "20:00", "22:00",
-  "00:00", "02:00", "04:00", "06:00", "08:00", "10:00",
-  "12:00", "14:00", "16:00", "18:00"
-)
-
-# Plot 
-
-fig_duration <- ggplot(recording_span_split,
-                       aes(x = subplot_ID, fill = included)) +
-  geom_rect(aes(xmin = as.numeric(subplot_ID) - 0.4,
-                xmax = as.numeric(subplot_ID) + 0.4,
-                ymin = first_hour,
-                ymax = last_hour)) +
-  # Reference lines for 18h window: 13:00 and 07:00 next day (= 31)
-  geom_hline(yintercept = 13, colour = "red",   linetype = "dashed", linewidth = 0.7) +
-  geom_hline(yintercept = 31, colour = "red",   linetype = "dashed", linewidth = 0.7) +
-  # Midnight reference line
-  geom_hline(yintercept = 24, colour = "black", linetype = "dotted", linewidth = 0.5) +
-  scale_fill_manual(values = c("Included" = "#1B9E77",
-                               "Excluded" = "grey70")) +
-  scale_y_reverse(breaks = hour_breaks,
-                  labels = hour_labels,
-                  limits = c(42, 0)) +
-  annotate("text", x = 0.5, y = 13, label = "13:00",
-           hjust = 0, vjust = -0.5, size = 3, colour = "red") +
-  annotate("text", x = 0.5, y = 31, label = "07:00 (+1)",
-           hjust = 0, vjust = -0.5, size = 3, colour = "red") +
-  annotate("text", x = 0.5, y = 24, label = "Midnight",
-           hjust = 0, vjust = -0.5, size = 3, colour = "black") +
-  labs(
-    x     = "Subplot",
-    y     = "Time of day",
-    fill  = NULL,
-    title = "Recording span per subplot"
-  ) +
-  theme_classic() +
-  theme(
-    axis.text.x        = element_text(angle = 90, hjust = 1,
-                                      vjust = 0.5, size = 7),
-    axis.text.y        = element_text(size = 8),
-    legend.position    = "bottom",
-    panel.grid.major.y = element_line(colour = "grey90")
-  )
-
-fig_duration
-
-ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_recording_duration.png",
-       fig_duration, width = 14, height = 6, dpi = 300)
-
-
+ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_scatter_20h.png",
+       fig_scatter_20h, width = 12, height = 6, dpi = 300)

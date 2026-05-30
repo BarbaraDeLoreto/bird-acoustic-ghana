@@ -1,0 +1,252 @@
+"common_name_birdlife","scientific_name_birdlife","family_birdlife","iucn_category_birdlife","breeding_endemic_birdlife","avonet_join_key","avonet_name_manual_remap","avonet_name_manual_target","habitat_avonet","habitat_density_avonet","habitat_manual_added"
+"White-breasted Guineafowl","Agelastes meleagrides","Guineafowl","Vulnerable",FALSE,"agelastes meleagrides",FALSE,NA,"Forest",1,FALSE
+"Western Crested Guineafowl","Guttera verreauxi","Guineafowl","Least Concern",FALSE,"guttera verreauxi",FALSE,NA,"Forest",1,FALSE
+"Ahanta Spurfowl","Pternistis ahantensis","Pheasants, Partridges, Turkeys, Grouse","Least Concern",FALSE,"pternistis ahantensis",FALSE,NA,"Forest",2,FALSE
+"Forest Francolin","Peliperdix lathami","Pheasants, Partridges, Turkeys, Grouse","Least Concern",FALSE,"peliperdix lathami",FALSE,NA,"Forest",1,FALSE
+"Afep Pigeon","Columba unicincta","Pigeons, Doves","Least Concern",FALSE,"columba unicincta",FALSE,NA,"Forest",2,FALSE
+"Western Bronze-naped Pigeon","Columba iriditorques","Pigeons, Doves","Least Concern",FALSE,"columba iriditorques",FALSE,NA,"Forest",2,FALSE
+"Tambourine Dove","Turtur tympanistria","Pigeons, Doves","Least Concern",FALSE,"turtur tympanistria",FALSE,NA,"Forest",2,FALSE
+"Blue-headed Wood-dove","Turtur brehmeri","Pigeons, Doves","Least Concern",FALSE,"turtur brehmeri",FALSE,NA,"Forest",2,FALSE
+"African Green-pigeon","Treron calvus","Pigeons, Doves","Least Concern",FALSE,"treron calvus",FALSE,NA,"Forest",2,FALSE
+"Red-necked Nightjar","Caprimulgus ruficollis","Nightjars","Near Threatened",FALSE,"caprimulgus ruficollis",FALSE,NA,"Forest",2,FALSE
+"Swamp Nightjar","Caprimulgus natalensis","Nightjars","Least Concern",FALSE,"caprimulgus natalensis",FALSE,NA,"Forest",2,FALSE
+"Long-tailed Nightjar","Caprimulgus climacurus","Nightjars","Least Concern",FALSE,"caprimulgus climacurus",FALSE,NA,"Forest",2,FALSE
+"Brown Nightjar","Veles binotatus","Nightjars","Least Concern",FALSE,"veles binotatus",FALSE,NA,"Forest",1,FALSE
+"Black Spinetail","Telacanthura melanopygia","Swifts","Least Concern",FALSE,"telacanthura melanopygia",FALSE,NA,"Forest",1,FALSE
+"Sabine's Spinetail","Rhaphidura sabini","Swifts","Least Concern",FALSE,"rhaphidura sabini",FALSE,NA,"Forest",1,FALSE
+"Cassin's Spinetail","Neafrapus cassini","Swifts","Least Concern",FALSE,"neafrapus cassini",FALSE,NA,"Forest",1,FALSE
+"Bates's Swift","Apus batesi","Swifts","Least Concern",FALSE,"apus batesi",FALSE,NA,"Forest",1,FALSE
+"Black-throated Coucal","Centropus leucogaster","Cuckoos","Least Concern",FALSE,"centropus leucogaster",FALSE,NA,"Forest",1,FALSE
+"Chattering Yellowbill","Ceuthmochares aereus","Cuckoos","Least Concern",FALSE,"ceuthmochares aereus",FALSE,NA,"Forest",1,FALSE
+"Yellow-throated Cuckoo","Chrysococcyx flavigularis","Cuckoos","Least Concern",FALSE,"chrysococcyx flavigularis",FALSE,NA,"Forest",1,FALSE
+"African Emerald Cuckoo","Chrysococcyx cupreus","Cuckoos","Least Concern",FALSE,"chrysococcyx cupreus",FALSE,NA,"Forest",2,FALSE
+"Whistling Long-tailed Cuckoo","Cercococcyx lemaireae","Cuckoos","Near Threatened",FALSE,"cercococcyx lemaireae",FALSE,NA,"Forest",1,FALSE
+"Olive Long-tailed Cuckoo","Cercococcyx olivinus","Cuckoos","Least Concern",FALSE,"cercococcyx olivinus",FALSE,NA,"Forest",1,FALSE
+"Red-chested Cuckoo","Cuculus solitarius","Cuckoos","Least Concern",FALSE,"cuculus solitarius",FALSE,NA,"Forest",2,FALSE
+"Black Cuckoo","Cuculus clamosus","Cuckoos","Least Concern",FALSE,"cuculus clamosus",FALSE,NA,"Forest",2,FALSE
+"Common Cuckoo","Cuculus canorus","Cuckoos","Least Concern",FALSE,"cuculus canorus",FALSE,NA,"Forest",2,FALSE
+"White-spotted Flufftail","Sarothrura pulchra","Rails, Gallinules, Coots","Least Concern",FALSE,"sarothrura pulchra",FALSE,NA,"Forest",1,FALSE
+"Nkulengu Rail","Himantornis haematopus","Rails, Gallinules, Coots","Least Concern",FALSE,"himantornis haematopus",FALSE,NA,"Forest",1,FALSE
+"Grey-throated Rail","Canirallus oculeus","Rails, Gallinules, Coots","Least Concern",FALSE,"canirallus oculeus",FALSE,NA,"Forest",1,FALSE
+"Great Blue Turaco","Corythaeola cristata","Turacos","Least Concern",FALSE,"corythaeola cristata",FALSE,NA,"Forest",1,FALSE
+"Green Turaco","Tauraco persa","Turacos","Least Concern",FALSE,"tauraco persa",FALSE,NA,"Forest",1,FALSE
+"Yellow-billed Turaco","Tauraco macrorhynchus","Turacos","Least Concern",FALSE,"tauraco macrorhynchus",FALSE,NA,"Forest",1,FALSE
+"Violet Turaco","Musophaga violacea","Turacos","Near Threatened",FALSE,"musophaga violacea",FALSE,NA,"Forest",2,FALSE
+"Olive Ibis","Bostrychia olivacea","Ibises, Spoonbills","Least Concern",FALSE,"bostrychia olivacea",FALSE,NA,"Forest",1,FALSE
+"Red-chested Owlet","Glaucidium tephronotum","Typical Owls","Least Concern",FALSE,"glaucidium tephronotum",FALSE,NA,"Forest",1,FALSE
+"Sandy Scops-owl","Otus icterorhynchus","Typical Owls","Least Concern",FALSE,"otus icterorhynchus",FALSE,NA,"Forest",1,FALSE
+"African Wood-owl","Strix woodfordii","Typical Owls","Least Concern",FALSE,"strix woodfordii",FALSE,NA,"Forest",1,FALSE
+"Maned Owl","Jubula lettii","Typical Owls","Least Concern",FALSE,"jubula lettii",FALSE,NA,"Forest",1,FALSE
+"Fraser's Eagle-owl","Bubo poensis","Typical Owls","Least Concern",FALSE,"bubo poensis",FALSE,NA,"Forest",1,FALSE
+"Shelley's Eagle-owl","Bubo shelleyi","Typical Owls","Vulnerable",FALSE,"bubo shelleyi",FALSE,NA,"Forest",1,FALSE
+"Akun Eagle-owl","Bubo leucostictus","Typical Owls","Least Concern",FALSE,"bubo leucostictus",FALSE,NA,"Forest",1,FALSE
+"Rufous Fishing-owl","Scotopelia ussheri","Typical Owls","Vulnerable",FALSE,"scotopelia ussheri",FALSE,NA,"Forest",1,FALSE
+"European Honey-buzzard","Pernis apivorus","Hawks, Eagles","Least Concern",FALSE,"pernis apivorus",FALSE,NA,"Forest",1,FALSE
+"African Cuckoo-hawk","Aviceda cuculoides","Hawks, Eagles","Least Concern",FALSE,"aviceda cuculoides",FALSE,NA,"Forest",1,FALSE
+"African Harrier-hawk","Polyboroides typus","Hawks, Eagles","Least Concern",FALSE,"polyboroides typus",FALSE,NA,"Forest",1,FALSE
+"Palm-nut Vulture","Gypohierax angolensis","Hawks, Eagles","Least Concern",FALSE,"gypohierax angolensis",FALSE,NA,"Forest",2,FALSE
+"Congo Serpent-eagle","Dryotriorchis spectabilis","Hawks, Eagles","Least Concern",FALSE,"dryotriorchis spectabilis",FALSE,NA,"Forest",1,FALSE
+"Western Banded Snake-eagle","Circaetus cinerascens","Hawks, Eagles","Least Concern",FALSE,"circaetus cinerascens",FALSE,NA,"Forest",1,FALSE
+"Bat Hawk","Macheiramphus alcinus","Hawks, Eagles","Least Concern",FALSE,"macheiramphus alcinus",FALSE,NA,"Forest",2,FALSE
+"Crowned Eagle","Stephanoaetus coronatus","Hawks, Eagles","Near Threatened",FALSE,"stephanoaetus coronatus",FALSE,NA,"Forest",1,FALSE
+"Long-crested Eagle","Lophaetus occipitalis","Hawks, Eagles","Least Concern",FALSE,"lophaetus occipitalis",FALSE,NA,"Forest",2,FALSE
+"Booted Eagle","Hieraaetus pennatus","Hawks, Eagles","Least Concern",FALSE,"hieraaetus pennatus",FALSE,NA,"Forest",1,FALSE
+"Red-chested Goshawk","Accipiter toussenelii","Hawks, Eagles","Least Concern",FALSE,"accipiter toussenelii",FALSE,NA,"Forest",1,FALSE
+"Red-legged Sparrowhawk","Accipiter erythropus","Hawks, Eagles","Least Concern",FALSE,"accipiter erythropus",FALSE,NA,"Forest",1,FALSE
+"Black Sparrowhawk","Accipiter melanoleucus","Hawks, Eagles","Least Concern",FALSE,"accipiter melanoleucus",FALSE,NA,"Forest",1,FALSE
+"Long-tailed Hawk","Urotriorchis macrourus","Hawks, Eagles","Least Concern",FALSE,"urotriorchis macrourus",FALSE,NA,"Forest",1,FALSE
+"Red-necked Buzzard","Buteo auguralis","Hawks, Eagles","Least Concern",FALSE,"buteo auguralis",FALSE,NA,"Forest",1,FALSE
+"Narina Trogon","Apaloderma narina","Trogons","Least Concern",FALSE,"apaloderma narina",FALSE,NA,"Forest",1,FALSE
+"West African Pied Hornbill","Lophoceros semifasciatus","Hornbills","Least Concern",FALSE,"lophoceros semifasciatus",FALSE,NA,"Forest",1,FALSE
+"Red-billed Dwarf Hornbill","Lophoceros camurus","Hornbills","Least Concern",FALSE,"lophoceros camurus",FALSE,NA,"Forest",1,FALSE
+"Western Long-tailed Hornbill","Horizocerus albocristatus","Hornbills","Least Concern",FALSE,"horizocerus albocristatus",FALSE,NA,"Forest",1,FALSE
+"Western Dwarf Hornbill","Horizocerus hartlaubi","Hornbills","Least Concern",FALSE,"horizocerus hartlaubi",FALSE,NA,"Forest",1,FALSE
+"Yellow-casqued Hornbill","Ceratogymna elata","Hornbills","Vulnerable",FALSE,"ceratogymna elata",FALSE,NA,"Forest",1,FALSE
+"Black-casqued Hornbill","Ceratogymna atrata","Hornbills","Near Threatened",FALSE,"ceratogymna atrata",FALSE,NA,"Forest",1,FALSE
+"Black-and-white-casqued Hornbill","Bycanistes subcylindricus","Hornbills","Least Concern",FALSE,"bycanistes subcylindricus",FALSE,NA,"Forest",2,FALSE
+"Brown-cheeked Hornbill","Bycanistes cylindricus","Hornbills","Vulnerable",FALSE,"bycanistes cylindricus",FALSE,NA,"Forest",1,FALSE
+"Western Piping Hornbill","Bycanistes fistulator","Hornbills","Least Concern",FALSE,"bycanistes fistulator",FALSE,NA,"Forest",1,FALSE
+"White-headed Woodhoopoe","Phoeniculus bollei","Woodhoopoes","Least Concern",FALSE,"phoeniculus bollei",FALSE,NA,"Forest",1,FALSE
+"Forest Scimitarbill","Rhinopomastus castaneiceps","Woodhoopoes","Least Concern",FALSE,"rhinopomastus castaneiceps",FALSE,NA,"Forest",1,FALSE
+"Black-headed Bee-eater","Merops breweri","Bee-eaters","Least Concern",FALSE,"merops breweri",FALSE,NA,"Forest",1,FALSE
+"Black Bee-eater","Merops gularis","Bee-eaters","Least Concern",FALSE,"merops gularis",FALSE,NA,"Forest",1,FALSE
+"Blue-moustached Bee-eater","Merops mentalis","Bee-eaters","Near Threatened",FALSE,"merops mentalis",FALSE,NA,"Forest",1,FALSE
+"Blue-throated Roller","Eurystomus gularis","Rollers","Least Concern",FALSE,"eurystomus gularis",FALSE,NA,"Forest",2,FALSE
+"Broad-billed Roller","Eurystomus glaucurus","Rollers","Least Concern",FALSE,"eurystomus glaucurus",FALSE,NA,"Forest",2,FALSE
+"African Dwarf-kingfisher","Ispidina lecontei","Kingfishers","Least Concern",FALSE,"ispidina lecontei",FALSE,NA,"Forest",1,FALSE
+"African Pygmy-kingfisher","Ispidina picta","Kingfishers","Least Concern",FALSE,"ispidina picta",FALSE,NA,"Forest",1,FALSE
+"White-bellied Kingfisher","Corythornis leucogaster","Kingfishers","Least Concern",FALSE,"corythornis leucogaster",FALSE,NA,"Forest",1,FALSE
+"Chocolate-backed Kingfisher","Halcyon badia","Kingfishers","Least Concern",FALSE,"halcyon badia",FALSE,NA,"Forest",1,FALSE
+"Blue-breasted Kingfisher","Halcyon malimbica","Kingfishers","Least Concern",FALSE,"halcyon malimbica",FALSE,NA,"Forest",1,FALSE
+"Western Yellow-spotted Barbet","Buccanodon dowsetti","African barbets","Least Concern",FALSE,"buccanodon dowsetti",FALSE,NA,"Forest",1,FALSE
+"Bristle-nosed Barbet","Gymnobucco peli","African barbets","Least Concern",FALSE,"gymnobucco peli",FALSE,NA,"Forest",1,FALSE
+"Naked-faced Barbet","Gymnobucco calvus","African barbets","Least Concern",FALSE,"gymnobucco calvus",FALSE,NA,"Forest",1,FALSE
+"Speckled Tinkerbird","Pogoniulus scolopaceus","African barbets","Least Concern",FALSE,"pogoniulus scolopaceus",FALSE,NA,"Forest",1,FALSE
+"Red-rumped Tinkerbird","Pogoniulus atroflavus","African barbets","Least Concern",FALSE,"pogoniulus atroflavus",FALSE,NA,"Forest",1,FALSE
+"Yellow-throated Tinkerbird","Pogoniulus subsulphureus","African barbets","Least Concern",FALSE,"pogoniulus subsulphureus",FALSE,NA,"Forest",1,FALSE
+"Yellow-rumped Tinkerbird","Pogoniulus bilineatus","African barbets","Least Concern",FALSE,"pogoniulus bilineatus",FALSE,NA,"Forest",1,FALSE
+"Hairy-breasted Barbet","Tricholaema hirsuta","African barbets","Least Concern",FALSE,"tricholaema hirsuta",FALSE,NA,"Forest",1,FALSE
+"Double-toothed Barbet","Pogonornis bidentatus","African barbets","Least Concern",FALSE,"pogonornis bidentatus",FALSE,NA,"Forest",1,FALSE
+"Western Yellow-billed Barbet","Trachylaemus goffinii","African barbets","Least Concern",FALSE,"trachylaemus goffinii",FALSE,NA,"Forest",1,FALSE
+"Togo Yellow-billed Barbet","Trachylaemus togoensis","African barbets","Least Concern",FALSE,"trachylaemus togoensis",FALSE,NA,"Forest",1,FALSE
+"Cassin's Honeybird","Prodotiscus insignis","Honeyguides","Least Concern",FALSE,"prodotiscus insignis",FALSE,NA,"Forest",1,FALSE
+"Yellow-footed Honeyguide","Melignomon eisentrauti","Honeyguides","Near Threatened",FALSE,"melignomon eisentrauti",FALSE,NA,"Forest",1,FALSE
+"Willcocks's Honeyguide","Indicator willcocksi","Honeyguides","Least Concern",FALSE,"indicator willcocksi",FALSE,NA,"Forest",1,FALSE
+"Least Honeyguide","Indicator exilis","Honeyguides","Least Concern",FALSE,"indicator exilis",FALSE,NA,"Forest",1,FALSE
+"Spotted Honeyguide","Indicator maculatus","Honeyguides","Least Concern",FALSE,"indicator maculatus",FALSE,NA,"Forest",1,FALSE
+"Lyre-tailed Honeyguide","Melichneutes robustus","Honeyguides","Least Concern",FALSE,"melichneutes robustus",FALSE,NA,"Forest",1,FALSE
+"African Piculet","Verreauxia africana","Woodpeckers","Least Concern",FALSE,"verreauxia africana",FALSE,NA,"Forest",1,FALSE
+"Little Green Woodpecker","Campethera maculosa","Woodpeckers","Least Concern",FALSE,"campethera maculosa",FALSE,NA,"Forest",2,FALSE
+"Buff-spotted Woodpecker","Pardipicus nivosus","Woodpeckers","Least Concern",FALSE,"campethera nivosa",TRUE,"campethera nivosa","Forest",1,FALSE
+"Brown-eared Woodpecker","Pardipicus caroli","Woodpeckers","Least Concern",FALSE,"campethera caroli",TRUE,"campethera caroli","Forest",1,FALSE
+"Fire-bellied Woodpecker","Dendropicos pyrrhogaster","Woodpeckers","Least Concern",FALSE,"dendropicos pyrrhogaster",FALSE,NA,"Forest",1,FALSE
+"Grey Parrot","Psittacus erithacus","Parrots","Endangered",FALSE,"psittacus erithacus",FALSE,NA,"Forest",1,FALSE
+"Red-fronted Parrot","Poicephalus gulielmi","Parrots","Least Concern",FALSE,"poicephalus gulielmi",FALSE,NA,"Forest",1,FALSE
+"Brown-necked Parrot","Poicephalus fuscicollis","Parrots","Least Concern",FALSE,"poicephalus fuscicollis",FALSE,NA,"Forest",1,FALSE
+"Black-collared Lovebird","Agapornis swindernianus","Parrots","Least Concern",FALSE,"agapornis swindernianus",FALSE,NA,"Forest",1,FALSE
+"Rose-ringed Parakeet","Alexandrinus krameri","Parrots","Least Concern",FALSE,"alexandrinus krameri",FALSE,NA,"Forest",2,FALSE
+"African Pitta","Pitta angolensis","Pittas","Least Concern",FALSE,"pitta angolensis",FALSE,NA,"Forest",1,FALSE
+"African Broadbill","Smithornis capensis","African and green broadbills","Least Concern",FALSE,"smithornis capensis",FALSE,NA,"Forest",2,FALSE
+"Rufous-sided Broadbill","Smithornis rufolateralis","African and green broadbills","Least Concern",FALSE,"smithornis rufolateralis",FALSE,NA,"Forest",1,FALSE
+"Western Black-headed Oriole","Oriolus brachyrynchus","Old World Orioles","Least Concern",FALSE,"oriolus brachyrynchus",FALSE,NA,"Forest",1,FALSE
+"Black-winged Oriole","Oriolus nigripennis","Old World Orioles","Least Concern",FALSE,"oriolus nigripennis",FALSE,NA,"Forest",1,FALSE
+"Purple-throated Cuckooshrike","Campephaga quiscalina","Cuckooshrikes","Least Concern",FALSE,"campephaga quiscalina",FALSE,NA,"Forest",1,FALSE
+"Western Wattled Cuckooshrike","Lobotos lobatus","Cuckooshrikes","Vulnerable",FALSE,"lobotos lobatus",FALSE,NA,"Forest",1,FALSE
+"Blue Cuckooshrike","Cyanograucalus azureus","Cuckooshrikes","Least Concern",FALSE,"cyanograucalus azureus",FALSE,NA,"Forest",1,FALSE
+"Red-billed Helmetshrike","Prionops caniceps","Vangas and allies","Near Threatened",FALSE,"prionops caniceps",FALSE,NA,"Forest",1,FALSE
+"African Shrike-flycatcher","Megabyas flammulatus","Vangas and allies","Least Concern",FALSE,"megabyas flammulatus",FALSE,NA,"Forest",1,FALSE
+"Black-and-white Shrike-flycatcher","Bias musicus","Vangas and allies","Least Concern",FALSE,"bias musicus",FALSE,NA,"Forest",1,FALSE
+"West African Wattle-eye","Dyaphorophyia hormophora","Batises and Wattle-eyes","Least Concern",FALSE,"dyaphorophyia hormophora",FALSE,NA,"Forest",1,FALSE
+"Red-cheeked Wattle-eye","Dyaphorophyia blissetti","Batises and Wattle-eyes","Least Concern",FALSE,"dyaphorophyia blissetti",FALSE,NA,"Forest",1,FALSE
+"Brown-throated Wattle-eye","Platysteira cyanea","Batises and Wattle-eyes","Least Concern",FALSE,"platysteira cyanea",FALSE,NA,"Forest",2,FALSE
+"Lagden's Bushshrike","Malaconotus lagdeni","Bush-shrikes","Near Threatened",FALSE,"malaconotus lagdeni",FALSE,NA,"Forest",1,FALSE
+"Sabine's Puffback","Dryoscopus sabini","Bush-shrikes","Least Concern",FALSE,"dryoscopus sabini",FALSE,NA,"Forest",1,FALSE
+"Many-colored Bushshrike","Chlorophoneus multicolor","Bush-shrikes","Least Concern",FALSE,"chlorophoneus multicolor",FALSE,NA,"Forest",1,FALSE
+"Sharpe's Drongo","Dicrurus sharpei","Drongos","Least Concern",FALSE,"dicrurus ludwigii",TRUE,"dicrurus ludwigii","Forest",2,FALSE
+"Shining Drongo","Dicrurus atripennis","Drongos","Least Concern",FALSE,"dicrurus atripennis",FALSE,NA,"Forest",1,FALSE
+"Velvet-mantled Drongo","Dicrurus modestus","Drongos","Least Concern",FALSE,"dicrurus modestus",FALSE,NA,"Forest",2,FALSE
+"Western Crested-flycatcher","Trochocercus nitens","Monarch-flycatchers","Least Concern",FALSE,"trochocercus nitens",FALSE,NA,"Forest",1,FALSE
+"Red-bellied Paradise-flycatcher","Terpsiphone rufiventer","Monarch-flycatchers","Least Concern",FALSE,"terpsiphone rufiventer",FALSE,NA,"Forest",1,FALSE
+"White-necked Rockfowl","Picathartes gymnocephalus","Picathartes","Vulnerable",FALSE,"picathartes gymnocephalus",FALSE,NA,"Forest",1,FALSE
+"Violet-backed Hyliota","Hyliota violacea","Hyliotas","Least Concern",FALSE,"hyliota violacea",FALSE,NA,"Forest",1,FALSE
+"Dusky Crested-flycatcher","Elminia nigromitrata","Fairy Flycatcher and allies","Least Concern",FALSE,"elminia nigromitrata",FALSE,NA,"Forest",1,FALSE
+"African Blue Flycatcher","Elminia longicauda","Fairy Flycatcher and allies","Least Concern",FALSE,"elminia longicauda",FALSE,NA,"Forest",1,FALSE
+"Dusky Tit","Melaniparus funereus","Tits and chickadees","Least Concern",FALSE,"melaniparus funereus",FALSE,NA,"Forest",1,FALSE
+"Forest Penduline-tit","Anthoscopus flavifrons","Penduline-tits","Least Concern",FALSE,"anthoscopus flavifrons",FALSE,NA,"Forest",1,FALSE
+"Western Nicator","Nicator chloris","Nicators","Least Concern",FALSE,"nicator chloris",FALSE,NA,"Forest",1,FALSE
+"Green Crombec","Sylvietta virens","Crombecs and allies","Least Concern",FALSE,"sylvietta virens",FALSE,NA,"Forest",2,FALSE
+"Lemon-bellied Crombec","Sylvietta denti","Crombecs and allies","Least Concern",FALSE,"sylvietta denti",FALSE,NA,"Forest",2,FALSE
+"Kemp's Longbill","Macrosphenus kempi","Crombecs and allies","Least Concern",FALSE,"macrosphenus kempi",FALSE,NA,"Forest",1,FALSE
+"Grey Longbill","Macrosphenus concolor","Crombecs and allies","Least Concern",FALSE,"macrosphenus concolor",FALSE,NA,"Forest",1,FALSE
+"Rufous-crowned Eremomela","Eremomela badiceps","Cisticolas and allies","Least Concern",FALSE,"eremomela badiceps",FALSE,NA,"Forest",1,FALSE
+"Black-capped Apalis","Apalis nigriceps","Cisticolas and allies","Least Concern",FALSE,"apalis nigriceps",FALSE,NA,"Forest",1,FALSE
+"Sharpe's Apalis","Apalis sharpii","Cisticolas and allies","Near Threatened",FALSE,"apalis sharpii",FALSE,NA,"Forest",1,FALSE
+"Bleating Camaroptera","Camaroptera brachyura","Cisticolas and allies","Least Concern",FALSE,"camaroptera brachyura",FALSE,NA,"Forest",1,FALSE
+"Yellow-browed Camaroptera","Camaroptera superciliaris","Cisticolas and allies","Least Concern",FALSE,"camaroptera superciliaris",FALSE,NA,"Forest",1,FALSE
+"Olive-green Camaroptera","Camaroptera chloronota","Cisticolas and allies","Least Concern",FALSE,"camaroptera chloronota",FALSE,NA,"Forest",1,FALSE
+"Oriole Warbler","Hypergerus atriceps","Cisticolas and allies","Least Concern",FALSE,"hypergerus atriceps",FALSE,NA,"Forest",1,FALSE
+"Black-headed Rufous-warbler","Bathmocercus cerviniventris","Cisticolas and allies","Data Deficient",FALSE,"bathmocercus cerviniventris",FALSE,NA,"Forest",1,FALSE
+"Square-tailed Saw-wing","Psalidoprocne nitens","Swallows and martins","Least Concern",FALSE,"psalidoprocne nitens",FALSE,NA,"Forest",1,FALSE
+"Fanti Saw-wing","Psalidoprocne obscura","Swallows and martins","Least Concern",FALSE,"psalidoprocne obscura",FALSE,NA,"Forest",2,FALSE
+"Slender-billed Greenbul","Stelgidillas gracilirostris","Bulbuls","Least Concern",FALSE,"stelgidillas gracilirostris",FALSE,NA,"Forest",1,FALSE
+"Golden Greenbul","Calyptocichla serinus","Bulbuls","Least Concern",FALSE,"calyptocichla serinus",FALSE,NA,"Forest",1,FALSE
+"Red-tailed Bristlebill","Bleda syndactylus","Bulbuls","Least Concern",FALSE,"bleda syndactylus",FALSE,NA,"Forest",1,FALSE
+"Green-tailed Bristlebill","Bleda eximius","Bulbuls","Near Threatened",FALSE,"bleda eximius",FALSE,NA,"Forest",1,FALSE
+"Grey-headed Bristlebill","Bleda canicapillus","Bulbuls","Least Concern",FALSE,"bleda canicapillus",FALSE,NA,"Forest",1,FALSE
+"Spotted Greenbul","Ixonotus guttatus","Bulbuls","Least Concern",FALSE,"ixonotus guttatus",FALSE,NA,"Forest",1,FALSE
+"Swamp Palm Bulbul","Thescelocichla leucopleura","Bulbuls","Least Concern",FALSE,"thescelocichla leucopleura",FALSE,NA,"Forest",1,FALSE
+"Honeyguide Greenbul","Baeopogon indicator","Bulbuls","Least Concern",FALSE,"baeopogon indicator",FALSE,NA,"Forest",1,FALSE
+"Yellow-whiskered Greenbul","Eurillas latirostris","Bulbuls","Least Concern",FALSE,"eurillas latirostris",FALSE,NA,"Forest",1,FALSE
+"Little Greenbul","Eurillas virens","Bulbuls","Least Concern",FALSE,"eurillas virens",FALSE,NA,"Forest",1,FALSE
+"Grey Greenbul","Eurillas gracilis","Bulbuls","Least Concern",FALSE,"eurillas gracilis",FALSE,NA,"Forest",1,FALSE
+"Ansorge's Greenbul","Eurillas ansorgei","Bulbuls","Least Concern",FALSE,"eurillas ansorgei",FALSE,NA,"Forest",1,FALSE
+"Plain Greenbul","Eurillas curvirostris","Bulbuls","Least Concern",FALSE,"eurillas curvirostris",FALSE,NA,"Forest",1,FALSE
+"Western Bearded Greenbul","Criniger barbatus","Bulbuls","Least Concern",FALSE,"criniger barbatus",FALSE,NA,"Forest",1,FALSE
+"Red-tailed Greenbul","Criniger calurus","Bulbuls","Least Concern",FALSE,"criniger calurus",FALSE,NA,"Forest",1,FALSE
+"Yellow-bearded Greenbul","Criniger olivaceus","Bulbuls","Vulnerable",FALSE,"criniger olivaceus",FALSE,NA,"Forest",1,FALSE
+"Icterine Greenbul","Phyllastrephus icterinus","Bulbuls","Least Concern",FALSE,"phyllastrephus icterinus",FALSE,NA,"Forest",1,FALSE
+"White-throated Greenbul","Phyllastrephus albigularis","Bulbuls","Least Concern",FALSE,"phyllastrephus albigularis",FALSE,NA,"Forest",1,FALSE
+"Baumann's Greenbul","Phyllastrephus baumanni","Bulbuls","Least Concern",FALSE,"phyllastrephus baumanni",FALSE,NA,"Forest",2,FALSE
+"Leaf-love","Pyrrhurus scandens","Bulbuls","Least Concern",FALSE,"pyrrhurus scandens",FALSE,NA,"Forest",2,FALSE
+"Western Bonelli's Warbler","Phylloscopus bonelli","Leaf-warblers","Least Concern",FALSE,"phylloscopus bonelli",FALSE,NA,"Forest",2,FALSE
+"Wood Warbler","Phylloscopus sibilatrix","Leaf-warblers","Least Concern",FALSE,"phylloscopus sibilatrix",FALSE,NA,"Forest",1,FALSE
+"Willow Warbler","Phylloscopus trochilus","Leaf-warblers","Least Concern",FALSE,"phylloscopus trochilus",FALSE,NA,"Forest",1,FALSE
+"Iberian Chiffchaff","Phylloscopus ibericus","Leaf-warblers","Least Concern",FALSE,"phylloscopus ibericus",FALSE,NA,"Forest",2,FALSE
+"Common Chiffchaff","Phylloscopus collybita","Leaf-warblers","Least Concern",FALSE,"phylloscopus collybita",FALSE,NA,"Forest",1,FALSE
+"Chestnut-capped Flycatcher","Erythrocercus mccallii","Bush-warblers","Least Concern",FALSE,"erythrocercus mccallii",FALSE,NA,"Forest",1,FALSE
+"Green Hylia","Hylia prasina","Bush-warblers","Least Concern",FALSE,"hylia prasina",FALSE,NA,"Forest",1,FALSE
+"Tit-hylia","Pholidornis rushiae","Bush-warblers","Least Concern",FALSE,"pholidornis rushiae",FALSE,NA,"Forest",1,FALSE
+"Brown Illadopsis","Illadopsis fulvescens","Ground babblers","Least Concern",FALSE,"illadopsis fulvescens",FALSE,NA,"Forest",1,FALSE
+"Pale-breasted Illadopsis","Illadopsis rufipennis","Ground babblers","Least Concern",FALSE,"illadopsis rufipennis",FALSE,NA,"Forest",1,FALSE
+"Black-capped Illadopsis","Illadopsis cleaveri","Ground babblers","Least Concern",FALSE,"illadopsis cleaveri",FALSE,NA,"Forest",1,FALSE
+"Puvel's Illadopsis","Illadopsis puveli","Ground babblers","Least Concern",FALSE,"illadopsis puveli",FALSE,NA,"Forest",2,FALSE
+"Rufous-winged Illadopsis","Illadopsis rufescens","Ground babblers","Near Threatened",FALSE,"illadopsis rufescens",FALSE,NA,"Forest",1,FALSE
+"Black-crowned Capuchin Babbler","Phyllanthus rubiginosus","Laughingthrushes and allies","Near Threatened",FALSE,"phyllanthus rubiginosus",FALSE,NA,"Forest",1,FALSE
+"Chestnut-winged Starling","Onychognathus fulgidus","Starlings","Least Concern",FALSE,"onychognathus fulgidus",FALSE,NA,"Forest",1,FALSE
+"Narrow-tailed Starling","Poeoptera lugubris","Starlings","Least Concern",FALSE,"poeoptera lugubris",FALSE,NA,"Forest",1,FALSE
+"Splendid Starling","Lamprotornis splendidus","Starlings","Least Concern",FALSE,"lamprotornis splendidus",FALSE,NA,"Forest",1,FALSE
+"Violet-backed Starling","Cinnyricinclus leucogaster","Starlings","Least Concern",FALSE,"cinnyricinclus leucogaster",FALSE,NA,"Forest",2,FALSE
+"Copper-tailed Starling","Hylopsar cupreocauda","Starlings","Near Threatened",FALSE,"hylopsar cupreocauda",FALSE,NA,"Forest",1,FALSE
+"White-tailed Ant-thrush","Neocossyphus poensis","Thrushes","Least Concern",FALSE,"neocossyphus poensis",FALSE,NA,"Forest",1,FALSE
+"Finsch's Flycatcher-thrush","Stizorhina finschi","Thrushes","Near Threatened",FALSE,"stizorhina finschi",FALSE,NA,"Forest",1,FALSE
+"Grey Ground-thrush","Geokichla princei","Thrushes","Least Concern",FALSE,"geokichla princei",FALSE,NA,"Forest",1,FALSE
+"White-tailed Alethe","Alethe diademata","Old World Flycatchers and Chats","Least Concern",FALSE,"alethe diademata",FALSE,NA,"Forest",1,FALSE
+"Forest Scrub-robin","Tychaedon leucosticta","Old World Flycatchers and Chats","Least Concern",FALSE,"tychaedon leucosticta",FALSE,NA,"Forest",1,FALSE
+"Little Grey Flycatcher","Muscicapa epulata","Old World Flycatchers and Chats","Least Concern",FALSE,"muscicapa epulata",FALSE,NA,"Forest",1,FALSE
+"Spotted Flycatcher","Muscicapa striata","Old World Flycatchers and Chats","Least Concern",FALSE,"muscicapa striata",FALSE,NA,"Forest",1,FALSE
+"Cassin's Flycatcher","Muscicapa cassini","Old World Flycatchers and Chats","Least Concern",FALSE,"muscicapa cassini",FALSE,NA,"Forest",3,FALSE
+"Ussher's Flycatcher","Artomyias ussheri","Old World Flycatchers and Chats","Least Concern",FALSE,"bradornis ussheri",TRUE,"bradornis ussheri","Forest",1,FALSE
+"Dusky Blue Flycatcher","Bradornis comitatus","Old World Flycatchers and Chats","Least Concern",FALSE,"bradornis comitatus",FALSE,NA,"Forest",1,FALSE
+"White-browed Forest-flycatcher","Fraseria cinerascens","Old World Flycatchers and Chats","Least Concern",FALSE,"fraseria cinerascens",FALSE,NA,"Forest",2,FALSE
+"African Forest-flycatcher","Fraseria ocreata","Old World Flycatchers and Chats","Least Concern",FALSE,"fraseria ocreata",FALSE,NA,"Forest",1,FALSE
+"Grey Tit-flycatcher","Fraseria plumbea","Old World Flycatchers and Chats","Least Concern",FALSE,"fraseria plumbea",FALSE,NA,"Forest",1,FALSE
+"Grey-throated Tit-flycatcher","Fraseria griseigularis","Old World Flycatchers and Chats","Least Concern",FALSE,"fraseria griseigularis",FALSE,NA,"Forest",1,FALSE
+"Olivaceous Flycatcher","Fraseria olivascens","Old World Flycatchers and Chats","Least Concern",FALSE,"fraseria olivascens",FALSE,NA,"Forest",1,FALSE
+"Nimba Flycatcher","Melaenornis annamarulae","Old World Flycatchers and Chats","Vulnerable",FALSE,"melaenornis annamarulae",FALSE,NA,"Forest",1,FALSE
+"Brown-chested Alethe","Chamaetylas poliocephala","Old World Flycatchers and Chats","Least Concern",FALSE,"chamaetylas poliocephala",FALSE,NA,"Forest",1,FALSE
+"Orange-breasted Forest-robin","Stiphrornis erythrothorax","Old World Flycatchers and Chats","Least Concern",FALSE,"stiphrornis erythrothorax",FALSE,NA,"Forest",1,FALSE
+"European Pied Flycatcher","Ficedula hypoleuca","Old World Flycatchers and Chats","Least Concern",FALSE,"ficedula hypoleuca",FALSE,NA,"Forest",1,FALSE
+"Fraser's Sunbird","Deleornis fraseri","Sunbirds","Least Concern",FALSE,"deleornis fraseri",FALSE,NA,"Forest",1,FALSE
+"Little Green Sunbird","Anthreptes seimundi","Sunbirds","Least Concern",FALSE,"anthreptes seimundi",FALSE,NA,"Forest",1,FALSE
+"Yellow-chinned Sunbird","Anthreptes rectirostris","Sunbirds","Least Concern",FALSE,"anthreptes rectirostris",FALSE,NA,"Forest",1,FALSE
+"Collared Sunbird","Hedydipna collaris","Sunbirds","Least Concern",FALSE,"hedydipna collaris",FALSE,NA,"Forest",2,FALSE
+"Blue-throated Brown Sunbird","Cyanomitra cyanolaema","Sunbirds","Least Concern",FALSE,"cyanomitra cyanolaema",FALSE,NA,"Forest",2,FALSE
+"Olive Sunbird","Cyanomitra olivacea","Sunbirds","Least Concern",FALSE,"cyanomitra olivacea",FALSE,NA,"Forest",1,FALSE
+"Buff-throated Sunbird","Chalcomitra adelberti","Sunbirds","Least Concern",FALSE,"chalcomitra adelberti",FALSE,NA,"Forest",2,FALSE
+"Tiny Sunbird","Cinnyris minullus","Sunbirds","Least Concern",FALSE,"cinnyris minullus",FALSE,NA,"Forest",1,FALSE
+"Johanna's Sunbird","Cinnyris johannae","Sunbirds","Least Concern",FALSE,"cinnyris johannae",FALSE,NA,"Forest",1,FALSE
+"Superb Sunbird","Cinnyris superbus","Sunbirds","Least Concern",FALSE,"cinnyris superbus",FALSE,NA,"Forest",1,FALSE
+"Bates's Sunbird","Cinnyris batesi","Sunbirds","Least Concern",FALSE,"cinnyris batesi",FALSE,NA,"Forest",1,FALSE
+"Yellow-mantled Weaver","Ploceus tricolor","Weavers","Least Concern",FALSE,"ploceus tricolor",FALSE,NA,"Forest",1,FALSE
+"Maxwell's Black Weaver","Ploceus albinucha","Weavers","Least Concern",FALSE,"ploceus albinucha",FALSE,NA,"Forest",1,FALSE
+"Preuss's Weaver","Ploceus preussi","Weavers","Least Concern",FALSE,"ploceus preussi",FALSE,NA,"Forest",1,FALSE
+"Cassin's Malimbe","Malimbus cassini","Weavers","Least Concern",FALSE,"malimbus cassini",FALSE,NA,"Forest",1,FALSE
+"Red-vented Malimbe","Malimbus scutatus","Weavers","Least Concern",FALSE,"malimbus scutatus",FALSE,NA,"Forest",1,FALSE
+"Blue-billed Malimbe","Malimbus nitens","Weavers","Least Concern",FALSE,"malimbus nitens",FALSE,NA,"Forest",1,FALSE
+"Red-headed Malimbe","Malimbus rubricollis","Weavers","Least Concern",FALSE,"malimbus rubricollis",FALSE,NA,"Forest",1,FALSE
+"Crested Malimbe","Malimbus malimbicus","Weavers","Least Concern",FALSE,"malimbus malimbicus",FALSE,NA,"Forest",1,FALSE
+"Western Bluebill","Spermophaga haematina","Waxbills","Least Concern",FALSE,"spermophaga haematina",FALSE,NA,"Forest",1,FALSE
+"Black-bellied Seedcracker","Pyrenestes ostrinus","Waxbills","Least Concern",FALSE,"pyrenestes ostrinus",FALSE,NA,"Forest",1,FALSE
+"Green Twinspot","Mandingoa nitidula","Waxbills","Least Concern",FALSE,"mandingoa nitidula",FALSE,NA,"Forest",1,FALSE
+"White-breasted Nigrita","Nigrita fusconotus","Waxbills","Least Concern",FALSE,"nigrita fusconotus",FALSE,NA,"Forest",1,FALSE
+"Chestnut-breasted Nigrita","Nigrita bicolor","Waxbills","Least Concern",FALSE,"nigrita bicolor",FALSE,NA,"Forest",1,FALSE
+"Pale-fronted Nigrita","Nigrita luteifrons","Waxbills","Least Concern",FALSE,"nigrita luteifrons",FALSE,NA,"Forest",1,FALSE
+"Grey-headed Nigrita","Nigrita canicapillus","Waxbills","Least Concern",FALSE,"nigrita canicapillus",FALSE,NA,"Forest",1,FALSE
+"Red-fronted Antpecker","Parmoptila rubrifrons","Waxbills","Near Threatened",FALSE,"parmoptila rubrifrons",FALSE,NA,"Forest",2,FALSE
+"Magpie Mannikin","Spermestes fringilloides","Waxbills","Least Concern",FALSE,"spermestes fringilloides",FALSE,NA,"Forest",2,FALSE
+"Brown-rumped Bunting","Emberiza affinis","Old World Buntings","Least Concern",FALSE,"emberiza affinis",FALSE,NA,"Forest",2,FALSE
+"Thick-billed Cuckoo","Pachycoccyx audeberti","Cuckoos","Least Concern",FALSE,"pachycoccyx audeberti",FALSE,NA,"Forest",2,FALSE
+"African Barred Owlet","Glaucidium capense","Typical Owls","Least Concern",FALSE,"glaucidium capense",FALSE,NA,"Forest",2,FALSE
+"Timneh Parrot","Psittacus timneh","Parrots","Endangered",FALSE,"psittacus timneh",FALSE,NA,"Forest",1,FALSE
+"White-spotted Wattle-eye","Dyaphorophyia tonsa","Batises and Wattle-eyes","Least Concern",FALSE,"dyaphorophyia tonsa",FALSE,NA,"Forest",1,FALSE
+"Rufous-bellied Wattle-eye","Dyaphorophyia concreta","Batises and Wattle-eyes","Near Threatened",FALSE,"dyaphorophyia concreta",FALSE,NA,"Forest",1,FALSE
+"Sierra Leone Prinia","Schistolais leontica","Cisticolas and allies","Endangered",FALSE,"schistolais leontica",FALSE,NA,"Forest",2,FALSE
+"Lowland Akalat","Sheppardia cyornithopsis","Old World Flycatchers and Chats","Least Concern",FALSE,"sheppardia cyornithopsis",FALSE,NA,"Forest",1,FALSE
+"Gola Malimbe","Malimbus ballmanni","Weavers","Near Threatened",FALSE,"malimbus ballmanni",FALSE,NA,"Forest",1,FALSE
+"Mountain Wagtail","Motacilla clara","Pipits and Wagtails","Least Concern",FALSE,"motacilla clara",FALSE,NA,"Forest",3,FALSE
+NA,"Lophoceros fasciatus",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Buccanodon duchaillui",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Cercococcyx mechowi",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Platysteira concreta",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Trachyphonus purpuratus",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Accipiter tachiro",NA,NA,NA,NA,NA,NA,NA,NA,NA

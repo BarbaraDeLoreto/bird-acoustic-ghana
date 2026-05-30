@@ -22,22 +22,22 @@ library(gt)
 library(tidyr)
 library(dplyr)
 
-# ── 1. Load the file ──────────────────────────────────────────────────────────
-# fread is much faster than read.csv for large files
+# Load the files 
+# fread because fies are too large
 bn_block_1 <- fread("D:/QBIO7008/Bird_accoustic/Data/birdnet_ALL_results_merged_block_1.csv")
 bn_block_3 <- fread("D:/QBIO7008/Bird_accoustic/Data/birdnet_ALL_results_merged_block_3.csv")
 bn <- rbind(bn_block_1, bn_block_3)
 
-# ── 2. First look 
+# check
 dim(bn)          # how many rows and columns?
 names(bn)        # column names
 str(bn)          # data types of each column
 head(bn, 10)     # first 10 rows
 
-# ── 3. Quick summary ──────────────────────────────────────────────────────────
+# check
 summary(bn)
 
-# ── 4. Check confidence score distribution ────────────────────────────────────
+# Check confidence score distribution 
 # BirdNET outputs a confidence value —  understand its range
 range(bn$confidence, na.rm = TRUE)
 hist(bn$confidence, breaks = 50, main = "BirdNET confidence scores", xlab = "Confidence")
@@ -67,7 +67,7 @@ bn[, .(filename, start_time, recording_start, detection_datetime)] |> head(5)
 
 ###########################################################################
 ###### removing entried with suspocious timezones (+1000) time stamp overlaps with +0000 files in the same plots
-# ── Remove detections from +1000 timezone files ───────────────────────────────
+# Remove detections from +1000 timezone files 
 bn <- bn[!grepl("\\+1000", filename)]
 
 # Confirm they are gone
@@ -77,7 +77,7 @@ bn |>
   distinct(tz_offset)
 
 # fix some naming issues
-# ── Fix deployment names ───────────────────────────────────────────────────────
+# fix deployment names 
 bn[, deployment := fcase(
   # C26 lowercase
   deployment == "C26\\c26_A",             "C26\\C26_A",
@@ -127,12 +127,12 @@ bn[, deployment := fcase(
   rep(TRUE, nrow(bn)),                     deployment
 )]
 
-# ── Confirm ────────────────────────────────────────────────────────────────────
+# check
 bn[, unique(deployment)] |> sort()
 
 #issues with C19
 bn[deployment == "C19", .(deployment, source_folder, filename)] |> head(20)
-# ── Fix C19 deployment using source_folder ────────────────────────────────────
+# Fix C19 deployment using source_folder 
 bn[deployment == "C19", deployment := fcase(
   str_starts(source_folder, "C19_A"), "C19\\C19_A",
   str_starts(source_folder, "C19_B"), "C19\\C19_B",
@@ -195,9 +195,49 @@ deployment_summary |>
   tab_header(title = "BirdNET deployment summary") |>
   gtsave("D:/QBIO7008/Bird_accoustic/Outputs/deployment_summary.pdf")
 
+#######################################################
+# fix the taxonomic missmatch identified for some species # discussion with experts plus crosswalk analysis
+
+# Check by scientific name
+check_sci <- c("Aerospiza tachiro", "Chloropicus pyrrhogaster", 
+               "Platysteira blissetti", "Phyllastrephus scandens")
+
+check_sci %in% bn$scientific_name
+
+# Check by common name
+check_com <- c("African Goshawk", "Fire-bellied Woodpecker", 
+               "Red-cheeked Wattle-eye", "Leaf-love")
+
+check_com %in% bn$common_name
+
+# only Platysteira blissetti (Red-cheeked Wattle-eye) will need changes
+bn <- bn %>%
+  mutate(scientific_name = case_when(
+    scientific_name == "Platysteira blissetti" ~ "Dyaphorophyia blissetti",
+    TRUE ~ scientific_name
+  ))
+
+#check
+# Should return FALSE - old name gone
+"Platysteira blissetti" %in% bn$scientific_name
+
+# Should return TRUE - new name present
+
+"Dyaphorophyia blissetti" %in% bn$scientific_name
+
+bn <- bn %>%
+  mutate(scientific_name = case_when(
+    scientific_name == "Psittacula krameri"    ~ "Alexandrinus krameri",
+    TRUE ~ scientific_name
+  ))
+
+#check
+# Check if Psittacula krameri is detected in bn 
+"Psittacula krameri" %in% bn$scientific_name
 
 ############################################################################
 ###### create an output file###############################################
 
 # Save the wrangled BirdNET data to your Outputs folder
 fwrite(bn, "D:/QBIO7008/Bird_accoustic/Outputs/birdnet_wrangled.csv")
+
