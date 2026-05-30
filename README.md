@@ -26,13 +26,7 @@ Scripts/
 
 Data files are not included in this repository due to file size and data ownership. 
 
-Data includes:
-
-- Traditional point-count survey spreadsheets (one per plot)
-- BirdNET detection outputs (`birdnet_wrangled.csv`)
-- Forest bird species list
-- Plot shade cover data
-- BirdLife Ghana species list
+Make sure you update the scripts for the correct file paths
 
 You will need access to the data to run the script.
 
