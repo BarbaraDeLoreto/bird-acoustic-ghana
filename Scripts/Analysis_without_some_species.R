@@ -232,7 +232,7 @@ write.csv(richness_20h,
 ###############################################################################
 
 # Load plot level shade cover data
-plot_shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/plot_shade_cover.csv")
+plot_shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/plot_shade_cover.csv")
 
 # Join shade cover
 richness_lfl <- richness_lfl |>
@@ -1031,11 +1031,11 @@ ggsave("D:/QBIO7008/Bird_accoustic/Plots/appendix_scatter_20h_alt.png",
 ####load data
 
 
-birdlife <- fread("D:/QBIO7008/Bird_accoustic/Data/GHA-Species_BirdlifeInternational.csv")
+birdlife <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/GHA-Species_BirdlifeInternational.csv")
 
-shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/subplot_shade_cover.csv")
+shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/subplot_shade_cover.csv")
 
-plot_shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/plot_shade_cover.csv")
+plot_shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/plot_shade_cover.csv")
 head(plot_shade)
 
 #filter bn data to 0.5 confidence threshold informed by Richness

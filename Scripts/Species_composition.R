@@ -47,11 +47,11 @@ bn_like_for_like_forest <- read.csv("D:/QBIO7008/Bird_accoustic/Outputs/bn_like_
 bn_20h_forest <- read.csv("D:/QBIO7008/Bird_accoustic/Outputs/bn_cocoa_20h_forest.csv",
                           stringsAsFactors = FALSE)
 
-birdlife <- fread("D:/QBIO7008/Bird_accoustic/Data/GHA-Species_BirdlifeInternational.csv")
+birdlife <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara//GHA-Species_BirdlifeInternational.csv")
 
-shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/subplot_shade_cover.csv")
+shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/subplot_shade_cover.csv")
 
-plot_shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/plot_shade_cover.csv")
+plot_shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/plot_shade_cover.csv")
 head(plot_shade)
 
 #filter bn data to 0.5 confidence threshold informed by Richness
@@ -748,22 +748,25 @@ unique(meta_lfl$subplot_ID) #39
 
 unique(meta_20h$subplot_ID)#37
 
-#number of species unique to point count
+#species in  point count
 species_trad <- all_surveys_forest_birds |>
   filter(ID %in% meta_lfl$subplot_ID) |>
   distinct(scientific_name)|>
   mutate(method= "point count")
 
+#species in BN lfl
 species_bn_lfl <- bn_lfl_thresh |>
   filter(subplot_ID %in% meta_lfl$subplot_ID) |>
   distinct(scientific_name)|>
   mutate(method = "BN_lfl")
 
+#species in BN 20h
 species_bn_20h <- bn_20h_thresh |>
   filter(subplot_ID %in% meta_20h$subplot_ID) |>
   distinct(scientific_name)|>
   mutate(method= "BN_20h")
 
+#all species classified by method
 all_species <- full_join(species_trad,species_bn_lfl)|>
   full_join(species_bn_20h)
 
@@ -779,7 +782,7 @@ all_species |>
   distinct(scientific_name) |>
   arrange(scientific_name)
 
-# do the same using the frequency dataset - firt LFL
+# do the same using the frequency dataset - first LFL
 #trad survey adjusted to the subplots in the analysis
 trad_species_freq_adjusted <- all_surveys_forest_birds |>
   filter(ID %in% meta_lfl$subplot_ID) |>
@@ -795,9 +798,10 @@ write.csv(trad_species_freq_adjusted,
           "D:/QBIO7008/Bird_accoustic/Outputs/composition_freq_trad_survey_adjusted.csv",
           row.names = FALSE)
 
-
+#most frequent species point-count pool only
 trad_species_freq_adjusted|> filter(!scientific_name %in% species_bn_lfl$scientific_name)|>
   distinct()
+
 #Number of species unique to BirdNET LKL
 
 bn_lfl_species_freq_adjusted <- bn_lfl_thresh |>
@@ -814,6 +818,9 @@ write.csv(bn_lfl_species_freq_adjusted,
           "D:/QBIO7008/Bird_accoustic/Outputs/composition_freq_birdnet_lfl_adjusted.csv",
           row.names = FALSE)
 
+
+
+#species only found with BN in the 20min sampling
 bn_lfl_species_freq_adjusted |> filter(!scientific_name %in% species_trad$scientific_name)|>
   distinct()
 
@@ -873,6 +880,7 @@ write.csv(bn_20h_species_freq_adjusted,
 
 bn_20h_species_freq_adjusted |> filter(!scientific_name %in% species_trad$scientific_name)|>
   distinct()
+
 
 
 #proportion of point count also detected by BirdNET 20h

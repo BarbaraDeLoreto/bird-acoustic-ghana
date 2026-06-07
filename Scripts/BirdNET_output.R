@@ -24,9 +24,11 @@ library(dplyr)
 
 # Load the files 
 # fread because fies are too large
-bn_block_1 <- fread("D:/QBIO7008/Bird_accoustic/Data/birdnet_ALL_results_merged_block_1.csv")
-bn_block_3 <- fread("D:/QBIO7008/Bird_accoustic/Data/birdnet_ALL_results_merged_block_3.csv")
+bn_block_1 <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/birdnet_ALL_results_merged_block_1.csv")
+bn_block_3 <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/birdnet_ALL_results_merged_block_3.csv")
 bn <- rbind(bn_block_1, bn_block_3)
+
+
 
 # check
 dim(bn)          # how many rows and columns?

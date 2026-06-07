@@ -9,14 +9,14 @@ library(stringr)
 library(tidyr)
 
 # Load data 
-ebird_species <- read_excel("D:/QBIO7008/Bird_accoustic/Data/eBird-Clements_v2025-integrated-checklist-October-2025.xlsx") %>%
+ebird_species <- read_excel("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/eBird-Clements_v2025-integrated-checklist-October-2025.xlsx") %>%
   filter(category == "species")
-birdlife <- fread("D:/QBIO7008/Bird_accoustic/Data/GHA-Species_BirdlifeInternational.csv")
+birdlife <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/GHA-Species_BirdlifeInternational.csv")
 
 
-birdnet_list_used <- read_excel("D:/QBIO7008/Bird_accoustic/Data/birdnet_species_list_used.xlsx")
+birdnet_list_used <- read_excel("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/birdnet_species_list_used.xlsx")
 
-birdnet_labels_full <- readLines("D:/QBIO7008/Bird_accoustic/Data/BirdNET_GLOBAL_6K_V2.4_Labels.txt")
+birdnet_labels_full <- readLines("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara//BirdNET_GLOBAL_6K_V2.4_Labels.txt")
 birdnet_full_sci <- sub("_.*", "", birdnet_labels_full)
 
 bn_w <- fread("D:/QBIO7008/Bird_accoustic/Outputs/birdnet_wrangled.csv")
@@ -66,6 +66,7 @@ write.xlsx(missing_df,
 trad_forest_species <- all_surveys_forest_birds |> 
   filter(ID %in% validated_subplots$subplot_ID) |>
   distinct(scientific_name)
+trad_forest_species <- unique(trad_forest_species$scientific_name)
 
 missing_from_bn_forest <- trad_forest_species[!trad_forest_species %in% bn_species]
 
@@ -83,14 +84,13 @@ common_name_lookup_forest <- all_surveys_forest_birds %>%
   ungroup()
 
 # Build forest summary table 
-missing_df_forest <- data.frame(scientific_name = missing_from_bn_forest$scientific_name) %>%
+missing_df_forest <- data.frame(scientific_name = sort(missing_from_bn_forest)) %>%
   left_join(common_name_lookup_forest, by = "scientific_name") %>%
   mutate(
     in_ebird_clements     = scientific_name %in% ebird_species$`scientific name`,
     in_birdnet_list_used  = scientific_name %in% birdnet_list_used$scientific_name,
     in_birdnet_full_model = scientific_name %in% birdnet_full_sci
-  ) %>%
-  arrange(scientific_name)
+  )
 
 print(missing_df_forest)
 nrow(missing_df_forest)
@@ -101,7 +101,7 @@ write.xlsx(missing_df_forest,
            rowNames = FALSE)
 
 #list of species in the point count forest data that is missing from birdnet labesl
-missing_from_bn_labels <- trad_forest_species[!trad_forest_species$scientific_name %in% birdnet_full_sci, ]
+missing_from_bn_labels <- trad_forest_species[!trad_forest_species %in% birdnet_full_sci]
 write.csv(missing_from_bn_labels,
            "D:/QBIO7008/Bird_accoustic/Results/trad_survey_forest_species_missing_from_bn_labels.csv")
 
@@ -110,7 +110,7 @@ write.csv(missing_from_bn_labels,
 ################################################################################
 
 # load the forest birds data
-forest_birds <- fread("D:/QBIO7008/Bird_accoustic/Data/forest_bird_species_list.csv")
+forest_birds <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/forest_bird_species_list.csv")
 
 names(forest_birds)
 nrow(forest_birds)
@@ -285,7 +285,7 @@ data.frame(
 birdnet_sci <- data.frame(scientific_name = birdnet_full_sci)
 
 # Step 2: load the crosswalk
-crosswalk <- fread("D:/QBIO7008/Bird_accoustic/Data/OTT_crosswalk_2023.csv")
+crosswalk <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/OTT_crosswalk_2023.csv")
 
 # Step 3: join BirdNET species to crosswalk on Clements scientific name
 birdnet_mapped <- birdnet_sci |>

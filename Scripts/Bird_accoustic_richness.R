@@ -39,14 +39,14 @@ library(viridis)
 ##### create a reference table with scientific names - including alternative naming used by Robert
 
 # Load BirdLife Ghana species list 
-birdlife <- fread("D:/QBIO7008/Bird_accoustic/Data/GHA-Species_BirdlifeInternational.csv")
+birdlife <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/GHA-Species_BirdlifeInternational.csv")
 
 # Quick check
 names(birdlife)
 nrow(birdlife)
 
 # Robert's name correction table (raw, unchanged) 
-robert_naming <- read_xlsx("D:/QBIO7008/Bird_accoustic/Data/Bird_Naming_Robert.xlsx") |>
+robert_naming <- read_xlsx("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/Bird_Naming_Robert.xlsx") |>
   filter(!is.na(Name_Robert))
 
 # Combined species lookup: Robert's corrections + BirdLife scientific names
@@ -664,10 +664,33 @@ bn_like_for_like |>
 #######################################################################
 
 # load the forest birds data
-forest_birds <- fread("D:/QBIO7008/Bird_accoustic/Data/forest_bird_species_list.csv")
+forest_birds <- fread("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/forest_bird_species_list.csv")
 
 #check
 head(forest_birds)
+
+#include a few species missing because of recent taxonomic splits or missmatches
+forest_birds_additions <- data.frame(
+  scientific_name_birdlife = c(
+    "Lophoceros fasciatus",
+    "Buccanodon duchaillui",
+    "Cercococcyx mechowi",
+    "Platysteira concreta",
+    "Trachyphonus purpuratus",
+    "Accipiter tachiro"
+  )
+)
+
+forest_birds <- bind_rows(forest_birds, forest_birds_additions)
+
+# check
+nrow(forest_birds)
+tail(forest_birds$scientific_name_birdlife, 8)
+
+# write a file with the list of all species included in the filer, for the report
+write.csv(forest_birds,
+          "D:/QBIO7008/Bird_accoustic/Results/forest_birds.csv",
+          row.names = FALSE)
 
 # create forest_species flag in all_surveys_checked 
 all_surveys_checked <- all_surveys_checked |>
@@ -1229,7 +1252,7 @@ write.csv(richness_20h,
 ###############################################################################
 
 # Load plot level shade cover data
-plot_shade <- read.csv("D:/QBIO7008/Bird_accoustic/Data/plot_shade_cover.csv")
+plot_shade <- read.csv("C:/Users/badel/Nextcloud/Bird_Biodiv_Agrof-Q8597/Data_R_Barbara/plot_shade_cover.csv")
 
 # Join shade cover
 richness_lfl <- richness_lfl |>
